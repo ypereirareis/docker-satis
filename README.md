@@ -9,6 +9,11 @@ A docker image and configuration to run Satis very easily in seconds:
 
 ## Run the container
 
+In this command do not forget to replace:
+
+* HOME_DIR_PATH in `-v "HOME_DIR_PATH/.ssh/id_rsa":/var/tmp/id`
+* toto.tata.tutu.com with your private repository in `-e PRIVATE_REPO_DOMAIN=toto.tata.tutu.com`
+
 ```
 docker run -it -p 3033:3000 -v $(pwd):/app -v "HOME_DIR_PATH/.ssh/id_rsa":/var/tmp/id -v /var/tmp/composer:/root/.composer -e PRIVATE_REPO_DOMAIN=toto.tata.tutu.com ypereirareis/docker-satis
 ```
