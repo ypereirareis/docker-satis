@@ -8,10 +8,15 @@ echo "-----------------------"
 
 
 echo ""
+echo Creating the correct known_hosts file
+echo "-----------------------"
+
+ssh-keyscan -t rsa $PRIVATE_REPO_DOMAIN >> /root/.ssh/known_hosts
+
+echo ""
 echo " Copying host ssh key from /var/tmp/id to /root/.ssh/id_rsa"
 echo "-----------------------"
 cp /var/tmp/id /root/.ssh/id_rsa
-echo "-----------------------"
 echo ""
 
 

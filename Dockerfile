@@ -14,11 +14,15 @@ RUN apt-get update && apt-get install -y \
 	php5-common \
 	php5-curl
 
+
+# Install nodejs
+RUN curl -sL https://deb.nodesource.com/setup | bash -
+RUN apt-get install -y nodejs
+RUN npm install express
+
+# Install ssh key
 RUN mkdir -p RUN mkdir /root/.ssh/
-
 RUN touch /root/.ssh/known_hosts
-
-RUN ssh-keyscan -t rsa gitlab.kptivestudio.com >> /root/.ssh/known_hosts
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -27,6 +31,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN php --version
 RUN composer --version
 
+# Install Satis
 RUN  composer create-project composer/satis --stability=dev --keep-vcs
 
 VOLUME ["/app"]
