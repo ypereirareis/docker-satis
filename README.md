@@ -11,12 +11,28 @@ A docker image and configuration to run Satis very easily in seconds:
 
 In this command do not forget to replace:
 
-* HOME_DIR_PATH in `-v "HOME_DIR_PATH/.ssh/id_rsa":/var/tmp/id`
-* toto.tata.tutu.com with your private repository in `-e PRIVATE_REPO_DOMAIN=toto.tata.tutu.com`
+* toto.tata.tutu.com with your private repository URL in `-e PRIVATE_REPO_DOMAIN=toto.tata.tutu.com`
 
 ```
-docker run -it -p 3033:3000 -v $(pwd):/app -v "HOME_DIR_PATH/.ssh/id_rsa":/var/tmp/id -v /var/tmp/composer:/root/.composer -e PRIVATE_REPO_DOMAIN=toto.tata.tutu.com -d ypereirareis/docker-satis
+docker run -it -p 3033:3000 -v $(pwd):/app -v "${HOME}/.ssh/id_rsa":/var/tmp/id -v /var/tmp/composer:/root/.composer -e PRIVATE_REPO_DOMAIN=toto.tata.tutu.com -d ypereirareis/docker-satis
 ```
+
+**SSH key**
+
+The container needs to know the ssh key you aded in your private repo.
+
+`-v "${HOME}/.ssh/id_rsa":/var/tmp/id`
+
+The ssh fingerprint of the private repo server needs to be added in the known_hosts file inside the container that's why we specify the URL through ENV variable.
+
+`-e PRIVATE_REPO_DOMAIN=toto.tata.tutu.com`
+
+**Composer cache**
+
+Cache must be shared with the host to be reused when you restart the container.
+
+`-v /var/tmp/composer:/root/.composer`
+
 
 ## Satis Home page
 
