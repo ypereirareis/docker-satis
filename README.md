@@ -1,6 +1,8 @@
 # docker-satis
 
-docker-satis
+A docker image and configuration to run Satis very easily in seconds.
+
+**DO NOT forget to create a config.json or satis.json file compatible with satis in your directory before starting the docker container.**
 
 
 ## Command
