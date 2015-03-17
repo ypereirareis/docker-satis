@@ -19,7 +19,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/build', function (req, res) {
-  exec("./scripts/build.sh", function (error, stdout, stderr) {
+  exec("/satis/build.sh", function (error, stdout, stderr) {
     if (stdout) res.end(stdout);
   });
 });
