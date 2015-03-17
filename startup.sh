@@ -27,6 +27,6 @@ cd /satis && php bin/satis build config.json web/
 echo "-----------------------"
 echo ""
 
-
-
+cron &
+cd /app && node server.js
 
