@@ -34,13 +34,13 @@ RUN composer --version
 # Install Satis
 RUN  composer create-project composer/satis --stability=dev --keep-vcs
 
-ADD crontab.txt /etc/cron.d/satis-cron
+ADD scripts/crontab /etc/cron.d/satis-cron
 RUN chmod 0644 /etc/cron.d/satis-cron
-ADD build.sh /satis/build.sh
+ADD scripts/build.sh /satis/build.sh
 RUN touch /var/log/satis-cron.log
 
 VOLUME ["/app"]
 
 WORKDIR /app
 
-CMD ["/bin/bash", "./startup.sh"]
+CMD ["/bin/bash", "./scripts/startup.sh"]
