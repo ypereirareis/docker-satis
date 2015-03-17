@@ -19,7 +19,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/build', function (req, res) {
-  exec("cd /satis && php bin/satis -n build config.json web/", function (error, stdout, stderr) {
+  exec("./scripts/build.sh", function (error, stdout, stderr) {
     if (stdout) res.end(stdout);
   });
 });
