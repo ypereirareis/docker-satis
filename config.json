@@ -1,0 +1,20 @@
+{
+    "name": "ks/private-satis",
+    "description": "Kptive Studio Private Composer",
+    "license": "proprietary",
+    "homepage": "https://satis.kptivestudio.com",
+    "repositories": [
+        { "type": "vcs", "url": "git@gitlab.kptivestudio.com:lacanadienne/distribution-bundle.git" },
+        { "type": "vcs", "url": "git@gitlab.kptivestudio.com:lacanadienne/api-sdk.git" },
+	{ "type": "vcs", "url": "git@gitlab.kptivestudio.com:lacanadienne/adminthemebundle.git" },
+	{ "type": "vcs", "url": "git@gitlab.kptivestudio.com:mirroring/pim-community-dev.git" },
+	{ "type": "vcs", "url": "git@gitlab.kptivestudio.com:mirroring/platform.git" },
+	{ "type": "vcs", "url": "git@gitlab.kptivestudio.com:mirroring/custom-entity-bundle.git" },
+        { "type": "vcs", "url": "git@gitlab.kptivestudio.com:lacanadienne/behatcommon.git" }
+
+    ],
+    "require-all": true,
+    "require-dependencies": true,
+    "require-dev-dependencies": true
+}
+
