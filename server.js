@@ -19,7 +19,7 @@ app.get('/', function (req, res) {
 });
 
 var buildHook = function (req, res) {
-  exec("/satis/build.sh", function (error, stdout, stderr) {
+  exec("scripts/build.sh", function (error, stdout, stderr) {
     if (stdout) res.end(stdout);
   });
 };

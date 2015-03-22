@@ -4,10 +4,8 @@ DEFAULT_CRONTAB_FREQUENCY_ESCAPED=$(printf '%s\n' "${DEFAULT_CRONTAB_FREQUENCY}"
 [ -z "$CRONTAB_FREQUENCY" ] && CRONTAB_FREQUENCY="$DEFAULT_CRONTAB_FREQUENCY"
 CRONTAB_FREQUENCY_ESCAPED=$(printf '%s\n' "${CRONTAB_FREQUENCY}" | sed 's/[[\.*^$/]/\\&/g')
 
-cp config.json /satis/config.json
-
 echo ""
-cat /satis/config.json
+cat config.json
 echo ""
 echo ""
 
@@ -20,7 +18,7 @@ cp /var/tmp/id /root/.ssh/id_rsa
 
 
 echo " >> Building Satis for the first time"
-/satis/build.sh
+scripts/build.sh
 
 if [[ $CRONTAB_FREQUENCY == -1 ]]; then
 
