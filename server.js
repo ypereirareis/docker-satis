@@ -18,12 +18,14 @@ app.get('/', function (req, res) {
  res.sendFile('/satis/web/index.html');
 });
 
-app.get('/build', function (req, res) {
+var buildHook = function (req, res) {
   exec("/satis/build.sh", function (error, stdout, stderr) {
     if (stdout) res.end(stdout);
   });
-});
+};
 
+app.get('/build', buildHook);
+app.post('/build', buildHook);
 
 var server = app.listen(3000, function () {
   var host = server.address().address
