@@ -18,7 +18,8 @@ RUN apt-get update && apt-get install -y \
 # Install nodejs
 RUN curl -sL https://deb.nodesource.com/setup | bash -
 RUN apt-get install -y nodejs
-RUN npm install express
+RUN npm install express \
+                serve-static
 
 # Install ssh key
 RUN mkdir -p RUN mkdir /root/.ssh/
