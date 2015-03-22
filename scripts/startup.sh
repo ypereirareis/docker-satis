@@ -1,3 +1,9 @@
+DEFAULT_CRONTAB_FREQUENCY="* * * * *"
+DEFAULT_CRONTAB_FREQUENCY_ESCAPED=$(printf '%s\n' "${DEFAULT_CRONTAB_FREQUENCY}" | sed 's/[[\.*^$/]/\\&/g')
+
+[ -z "$CRONTAB_FREQUENCY" ] && CRONTAB_FREQUENCY="$DEFAULT_CRONTAB_FREQUENCY"
+CRONTAB_FREQUENCY_ESCAPED=$(printf '%s\n' "${CRONTAB_FREQUENCY}" | sed 's/[[\.*^$/]/\\&/g')
+
 cp config.json /satis/config.json
 
 echo ""
@@ -16,10 +22,19 @@ cp /var/tmp/id /root/.ssh/id_rsa
 echo " >> Building Satis for the first time"
 /satis/build.sh
 
+if [[ $CRONTAB_FREQUENCY == -1 ]]; then
 
-echo " >> Starting cron"
-cron &
+  echo " > No Cron"
 
+else
+
+  echo " > Crontab frequency set to: ${CRONTAB_FREQUENCY}"
+  sed -i "s/${DEFAULT_CRONTAB_FREQUENCY_ESCAPED}/${CRONTAB_FREQUENCY_ESCAPED}/g" /etc/cron.d/satis-cron
+
+  echo " >> Starting cron"
+  cron &
+
+fi
 
 echo " >> Starting node web server"
 cd /app && node server.js

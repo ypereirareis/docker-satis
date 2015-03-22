@@ -22,6 +22,20 @@ docker run -it -p 3033:3000 \
   -d ypereirareis/docker-satis
 ```
 
+**Crontab**
+
+By default, building script is executed every minute thanks to the crontab configuration
+
+`* * * * * root /satis/build.sh >> /var/log/satis-cron.log 2>&1`
+
+You can override this value with an ENV variable:
+
+`-e CRONTAB_FREQUENCY="*/10 * * * *"`
+
+Or you can disable cron with this ENV variable value:
+
+`-e CRONTAB_FREQUENCY="-1"` or `-e CRONTAB_FREQUENCY=-1`
+
 **SSH key**
 
 The container needs to know the ssh key you aded in your private repo.

@@ -2,7 +2,7 @@ FROM ubuntu:14.04
 
 MAINTAINER Yannick Pereira-Reis <yannick.pereira.reis@gmail.com>
 
-ENV DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND noninteractive
 
 # Install common libs
 RUN apt-get update && apt-get install -y \
@@ -32,7 +32,7 @@ RUN php --version
 RUN composer --version
 
 # Install Satis
-RUN  composer create-project composer/satis --stability=dev --keep-vcs
+RUN composer create-project composer/satis --stability=dev --keep-vcs
 
 ADD scripts/crontab /etc/cron.d/satis-cron
 RUN chmod 0644 /etc/cron.d/satis-cron
