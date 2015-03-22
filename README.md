@@ -19,6 +19,7 @@ docker run -it -p 3033:3000 \
   -v "${HOME}/.ssh/id_rsa":/var/tmp/id \
   -v /var/tmp/composer:/root/.composer \
   -e PRIVATE_REPO_DOMAIN=toto.tata.tutu.com \
+  -e CRONTAB_FREQUENCY="*/10 * * * *" \
   -d ypereirareis/docker-satis
 ```
 
@@ -60,6 +61,10 @@ Cache must be shared with the host to be reused when you restart the container.
 ## Satis manual build
 
 [http://127.0.0.1:3033/build](http://127.0.0.1:3033/build)
+
+## Webhook
+
+`POST http://127.0.0.1:3033/build`
 
 ## Access Satis from outside
 
