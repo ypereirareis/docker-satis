@@ -1,8 +1,9 @@
 var http = require('http');
-var sys = require('sys')
+var sys = require('sys');
 var exec = require('child_process').exec;
-var express = require('express')
-var app = express()
+var express = require('express');
+var app = express();
+var serveStatic = require('serve-static');
 
 
 // Add headers
@@ -14,9 +15,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.get('/', function (req, res) {
- res.sendFile('/satis/web/index.html');
-});
+app.use(serveStatic('/satis/web', {'index': ['index.html']}))
 
 var buildHook = function (req, res) {
   exec("scripts/build.sh", function (error, stdout, stderr) {
