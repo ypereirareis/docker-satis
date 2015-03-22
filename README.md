@@ -81,3 +81,6 @@ server {
     }
 }
 ```
+
+Or have a look at: https://github.com/jwilder/nginx-proxy
+
