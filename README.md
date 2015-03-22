@@ -46,3 +46,19 @@ Cache must be shared with the host to be reused when you restart the container.
 ## Satis manual build
 
 [http://127.0.0.1:3033/build](http://127.0.0.1:3033/build)
+
+## Access Satis from outside
+
+If you want to give access satis to the outside world, you should use a reverse proxy.
+
+Below is a working setup for Nginx:
+
+```
+server {
+    server_name satis.domain.tld;
+
+    location / {
+        proxy_pass http://127.0.0.1:3033;
+    }
+}
+```
