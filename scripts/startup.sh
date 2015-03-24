@@ -34,6 +34,9 @@ else
 
 fi
 
+chmod -R 777 /app/config.json
+service php5-fpm start && nginx &
+
 echo " >> Starting node web server"
 cd /app && node server.js
 
