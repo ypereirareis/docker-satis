@@ -101,7 +101,14 @@ And run these two containers:
 then
 
 ```
-docker run --rm -it -p 3033:3000   -v $(pwd):/app   -v "${HOME}/.ssh/id_rsa":/var/tmp/id   -v /var/tmp/composer:/root/.composer   -e PRIVATE_REPO_DOMAIN=toto.tata.tutu.com  -e CRONTAB_FREQUENCY="*/5 * * * *" -e VIRTUAL_HOST="satisfy.local.dev" ypereirareis/docker-satis
+docker run --rm -it -p 3033:3000 \
+  -v $(pwd):/app \
+  -v "${HOME}/.ssh/id_rsa":/var/tmp/id \
+  -v /var/tmp/composer:/root/.composer \
+  -e PRIVATE_REPO_DOMAIN=toto.tata.tutu.com \
+  -e CRONTAB_FREQUENCY="*/5 * * * *" \
+  -e VIRTUAL_HOST="satisfy.local.dev" \
+  ypereirareis/docker-satis
 ```
 
 and you will access the **Satisfy** web page through:
