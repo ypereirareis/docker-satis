@@ -60,8 +60,7 @@ RUN composer --version
 
 # Install Satis and Satisfy
 RUN composer create-project composer/satis --stability=dev --keep-vcs
-RUN composer create-project playbloom/satisfy --stability=dev --repository-url=https://raw.githubusercontent.com/ypereirareis/satisfy/master/packages.json
-
+RUN git clone https://github.com/ypereirareis/satisfy.git && composer install --working-dir=satisfy
 
 ADD scripts/crontab /etc/cron.d/satis-cron
 RUN chmod 0644 /etc/cron.d/satis-cron

@@ -1,7 +1,7 @@
 server {
     listen  80;
 
-    root /satisfy/web/admin;
+    root /satisfy/web;
     index index.php index.html index.htm;
 
     # Make site accessible from http://set-ip-address.xip.io
