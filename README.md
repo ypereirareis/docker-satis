@@ -14,7 +14,7 @@ In this command do not forget to replace:
 * toto.tata.tutu.com with your private repository URL in `-e PRIVATE_REPO_DOMAIN=toto.tata.tutu.com`
 
 ```
-docker run -it -p 3033:3000 \
+docker run -it -p 3033:3000 -p 80:80 \
   -v $(pwd):/app \
   -v "${HOME}/.ssh/id_rsa":/var/tmp/id \
   -v /var/tmp/composer:/root/.composer \
@@ -61,6 +61,14 @@ Cache must be shared with the host to be reused when you restart the container.
 ## Satis manual build
 
 [http://127.0.0.1:3033/build](http://127.0.0.1:3033/build)
+
+## Satisfy
+
+Satisfy allows you to add repositories in your satis configuration file with a web interface.
+
+Once the container is started, just go to:
+
+[http://127.0.0.1/admin](http://127.0.0.1/admin)
 
 ## Webhook
 
