@@ -1,6 +1,6 @@
 # Docker Satis
 
-A docker image and configuration to run Satis very easily in seconds:
+A docker image and configuration to run [Satis](https://github.com/composer/satis) very easily in seconds:
 
 * Automatically (cron every minute)
 * Manually (http://127.0.0.1:3033/build)
