@@ -1,6 +1,6 @@
 {
-    "name": "Test Repository 3",
-    "homepage": "https://satis.test.com",
+    "name": "My Private Repo",
+    "homepage": "https://satis.domain.tld",
     "repositories": [
     ],
     "require-all": true

@@ -1,1 +1,1 @@
-* * * * * root /satis/build.sh >> /var/log/satis-cron.log 2>&1
+* * * * * root /app/scripts/build.sh >> /var/log/satis-cron.log 2>&1

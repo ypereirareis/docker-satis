@@ -34,6 +34,16 @@ else
 
 fi
 
+# Copy custom config if exists
+[[ -f /app/config.php ]] && cp /app/config.php  /satisfy/app/config.php
+
+if [[ -f /app/scripts/crontab ]]; then
+  cp /app/scripts/crontab /etc/cron.d/satis-cron
+  chmod 0644 /etc/cron.d/satis-cron
+  touch /var/log/satis-cron.log
+fi
+
+
 chmod -R 777 /app/config.json
 service php5-fpm start && nginx &
 
