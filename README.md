@@ -47,6 +47,9 @@ The ssh fingerprint of the private repo server needs to be added in the known_ho
 
 `-e PRIVATE_REPO_DOMAIN=toto.tata.tutu.com`
 
+Or you also can specify multiple domains
+`-e PRIVATE_REPO_DOMAIN_LIST="foo.example.com bar.example.net"`
+
 **Composer cache**
 
 Cache must be shared with the host to be reused when you restart the container.
