@@ -11,7 +11,7 @@ This is always an image built based on master branch.
 ```shell
 
 docker run --rm -it -p 3033:3000 \
-  -e PRIVATE_REPO_DOMAIN_LIST=bitbucket.org gitlab.com github.com \
+  -e PRIVATE_REPO_DOMAIN_LIST="bitbucket.org gitlab.com github.com" \
   ypereirareis/docker-satis:2.0.0
 
 ```
