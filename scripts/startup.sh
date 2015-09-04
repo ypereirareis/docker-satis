@@ -5,7 +5,7 @@ DEFAULT_CRONTAB_FREQUENCY_ESCAPED=$(printf '%s\n' "${DEFAULT_CRONTAB_FREQUENCY}"
 CRONTAB_FREQUENCY_ESCAPED=$(printf '%s\n' "${CRONTAB_FREQUENCY}" | sed 's/[[\.*^$/]/\\&/g')
 
 echo ""
-cat config.json
+cat /app/config.json
 echo ""
 echo ""
 
@@ -48,5 +48,5 @@ chmod -R 777 /app/config.json
 service php5-fpm start && nginx &
 
 echo " >> Starting node web server"
-cd /app && node server.js
+node /app/server.js
 
