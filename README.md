@@ -9,18 +9,14 @@ A docker image and configuration to run [Satis](https://github.com/composer/sati
 
 ## Run the container
 
-In this command do not forget to replace:
-
-* toto.tata.tutu.com with your private repository URL in `-e PRIVATE_REPO_DOMAIN=toto.tata.tutu.com`
-
 ```
 docker run -it -p 3033:3000 -p 80:80 \
   -v $(pwd):/app \
   -v "${HOME}/.ssh/id_rsa":/var/tmp/id \
   -v /var/tmp/composer:/root/.composer \
-  -e PRIVATE_REPO_DOMAIN=toto.tata.tutu.com \
+  -e PRIVATE_REPO_DOMAIN_LIST=toto.tata.tutu.com \
   -e CRONTAB_FREQUENCY="*/10 * * * *" \
-  -d ypereirareis/docker-satis
+  -d ypereirareis/docker-satis:2.0.0
 ```
 
 **Crontab**
@@ -43,9 +39,9 @@ The container needs to know the ssh key you aded in your private repo.
 
 `-v "${HOME}/.ssh/id_rsa":/var/tmp/id`
 
-The ssh fingerprint of the private repo server needs to be added in the known_hosts file inside the container that's why we specify the URL through ENV variable.
+The ssh fingerprint of the private repos servers need to be added in the known_hosts file inside the container that's why we specify the URL through ENV variable.
 
-`-e PRIVATE_REPO_DOMAIN=toto.tata.tutu.com`
+`-e PRIVATE_REPO_DOMAIN_LIST=foo.example.com bar.exemple.com baz.exemple.com`
 
 **Composer cache**
 
@@ -105,10 +101,10 @@ docker run --rm -it -p 3033:3000 \
   -v $(pwd):/app \
   -v "${HOME}/.ssh/id_rsa":/var/tmp/id \
   -v /var/tmp/composer:/root/.composer \
-  -e PRIVATE_REPO_DOMAIN=toto.tata.tutu.com \
+  -e PRIVATE_REPO_DOMAIN_LIST=foo.example.com \
   -e CRONTAB_FREQUENCY="*/5 * * * *" \
   -e VIRTUAL_HOST="satisfy.local.dev" \
-  ypereirareis/docker-satis
+  ypereirareis/docker-satis:2.0.0
 ```
 
 and you will access the **Satisfy** web page through:

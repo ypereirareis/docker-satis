@@ -1,3 +1,11 @@
+# Reset
+Color_Off='\033[0m'       # Text Reset
+
+# Regular Colors
+Red='\033[0;31m'          # Red
+Green='\033[0;32m'        # Green
+Yellow='\033[0;33m'       # Yellow
+
 DEFAULT_CRONTAB_FREQUENCY="* * * * *"
 DEFAULT_CRONTAB_FREQUENCY_ESCAPED=$(printf '%s\n' "${DEFAULT_CRONTAB_FREQUENCY}" | sed 's/[[\.*^$/]/\\&/g')
 
@@ -9,9 +17,27 @@ cat /app/config.json
 echo ""
 echo ""
 
-echo " >> Creating the correct known_hosts file"
-ssh-keyscan -t rsa $PRIVATE_REPO_DOMAIN >> /root/.ssh/known_hosts
 
+if [ ! -z "$PRIVATE_REPO_DOMAIN" ]; then
+  echo ""
+  echo -e "$Yellow"
+  echo "======================================================================"
+  echo "PRIVATE_REPO_DOMAIN env var is now PRIVATE_REPO_DOMAIN_LIST !!! "
+  echo "----------------------------------------------------------------------"
+  echo " Or use tag 1.0.0 to stay compatible with PRIVATE_REPO_DOMAIN env var"
+  echo "ypereirareis/docker-satis:1.0.0"
+  echo "======================================================================"
+  echo -e "$Color_Off"
+
+  exit 1
+fi
+
+
+
+echo " >> Creating the correct known_hosts file"
+for _DOMAIN in $PRIVATE_REPO_DOMAIN_LIST ; do
+    ssh-keyscan -t rsa $_DOMAIN >> /root/.ssh/known_hosts
+done
 
 echo " >> Copying host ssh key from /var/tmp/id to /root/.ssh/id_rsa"
 cp /var/tmp/id /root/.ssh/id_rsa
