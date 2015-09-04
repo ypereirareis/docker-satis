@@ -10,8 +10,10 @@ echo ""
 echo ""
 
 echo " >> Creating the correct known_hosts file"
-ssh-keyscan -t rsa $PRIVATE_REPO_DOMAIN >> /root/.ssh/known_hosts
-
+TARGET_DOMAIN_LIST="$PRIVATE_REPO_DOMAIN $PRIVATE_REPO_DOMAIN_LIST"
+for _DOMAIN in $TARGET_DOMAIN_LIST ; do
+    ssh-keyscan -t rsa $_DOMAIN >> /root/.ssh/known_hosts
+done
 
 echo " >> Copying host ssh key from /var/tmp/id to /root/.ssh/id_rsa"
 cp /var/tmp/id /root/.ssh/id_rsa
