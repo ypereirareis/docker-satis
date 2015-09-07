@@ -10,12 +10,14 @@ echo ""
 echo ""
 
 echo " >> Creating the correct known_hosts file"
+[ -z "$PRIVATE_REPO_DOMAIN" ] &&  echo "You need to set PRIVATE_REPO_DOMAIN env var !!!" && exit 1
+touch /root/.ssh/known_hosts
 ssh-keyscan -t rsa $PRIVATE_REPO_DOMAIN >> /root/.ssh/known_hosts
 
 
 echo " >> Copying host ssh key from /var/tmp/id to /root/.ssh/id_rsa"
+mkdir -p /root/.ssh/
 cp /var/tmp/id /root/.ssh/id_rsa
-
 
 echo " >> Building Satis for the first time"
 scripts/build.sh

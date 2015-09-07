@@ -5,7 +5,7 @@ MAINTAINER Yannick Pereira-Reis <yannick.pereira.reis@gmail.com>
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install common libs
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
 	nano \
 	git \
 	curl \
@@ -18,7 +18,7 @@ RUN apt-get update
 RUN add-apt-repository -y ppa:ondrej/php5
 RUN add-apt-repository -y ppa:nginx/stable
 
-RUN apt-get update && apt-get install -y --force-yes \
+RUN apt-get update && apt-get install -y --force-yes --no-install-recommends \
 	php5 \
 	php5-mcrypt \
 	php5-tidy \
@@ -32,7 +32,9 @@ RUN apt-get update && apt-get install -y --force-yes \
 RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php5/fpm/php.ini
 RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php5/cli/php.ini
 
-RUN apt-get install -y --force-yes nginx
+RUN  apt-get install -y --force-yes nginx ssh
+
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf
@@ -49,7 +51,6 @@ RUN npm install express \
 # Install ssh key
 RUN mkdir -p /root/.ssh/
 RUN touch /root/.ssh/known_hosts
-RUN ssh-keyscan -t rsa github.com >> /root/.ssh/known_hosts
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
