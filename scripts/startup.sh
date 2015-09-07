@@ -32,7 +32,7 @@ if [ ! -z "$PRIVATE_REPO_DOMAIN" ]; then
   exit 1
 fi
 
-
+touch /root/.ssh/known_hosts
 
 echo " >> Creating the correct known_hosts file"
 for _DOMAIN in $PRIVATE_REPO_DOMAIN_LIST ; do
