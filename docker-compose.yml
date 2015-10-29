@@ -3,12 +3,12 @@ satis:
     hostname: satis
     volumes:
         - ".:/app"
-        - "./var/tmp/composer:/root/.composer"
+        - "/var/tmp/composer:/root/.composer"
         - "~/.ssh/id_rsa:/var/tmp/id"
     environment:
         PRIVATE_REPO_DOMAIN_LIST: bitbucket.org gitlab.com github.com
         CRONTAB_FREQUENCY: "*/5 * * * *"
-        VIRTUAL_HOST: satisfy.local
+        VIRTUAL_HOST: satisfy.local.dev
     ports:
         - 8080:3000
 
