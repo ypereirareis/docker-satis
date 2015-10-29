@@ -19,7 +19,7 @@ $app['satis.class'] = 'Playbloom\\Satisfy\\Model\\Configuration';
  * Default values for a new repository
  */
 $app['composer.repository.type_default'] = 'git';
-$app['composer.repository.url_default'] = 'git@github.com:MyLittleParis/';
+$app['composer.repository.url_default'] = '';
 
 /**
  * Default repository url pattern
@@ -38,7 +38,7 @@ $app['auth'] = $app->share(function() {
 /**
  * If the simple standard login form should be used to restrict admin section
  */
-$app['auth.use_login_form'] = false;
+$app['auth.use_login_form'] = true;
 
 /**
  * Users authorized to access admin section (an array of username => password)
