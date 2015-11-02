@@ -4,6 +4,14 @@
 
 This is always an image built based on master branch.
 
+## v2.1
+
+* Satisfy auth activated by default
+
+```php
+$app['auth.use_login_form'] = true;
+```
+
 ## v2.0.0
 
 * `PRIVATE_REPO_DOMAIN` becomes `PRIVATE_REPO_DOMAIN_LIST` to deal with multiple private repositories.
