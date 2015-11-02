@@ -80,5 +80,6 @@ WORKDIR /app
 
 CMD ["/bin/bash", "/app/scripts/startup.sh"]
 
+EXPOSE 3000
 EXPOSE 80
 EXPOSE 443
