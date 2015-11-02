@@ -4,7 +4,7 @@
 
 This is always an image built based on master branch.
 
-## v2.1
+## v3.0
 
 * Satisfy auth activated by default
 
