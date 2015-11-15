@@ -50,9 +50,6 @@ RUN touch /root/.ssh/known_hosts
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Display version information
-RUN php --version
-RUN composer --version
 
 # Install Satis and Satisfy
 RUN composer create-project playbloom/satisfy --stability=dev
