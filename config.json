@@ -3,5 +3,10 @@
     "homepage": "https://satis.domain.tld",
     "repositories": [
     ],
-    "require-all": true
+    "require":[],
+    "require-all":true,
+    "require-dependencies":true,
+    "require-dev-dependencies":true,
+    "minimum-stability":"dev"
 }
+

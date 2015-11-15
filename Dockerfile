@@ -27,14 +27,14 @@ RUN apt-get update && apt-get install -y --force-yes --no-install-recommends \
 	php5-curl \
 	php5-intl \
 	php5-fpm \
-	php-apc
+	php-apc \
+	nginx \
+	ssh \
+	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php5/fpm/php.ini
 RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php5/cli/php.ini
 
-RUN apt-get install -y --force-yes nginx ssh
-
-RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf
@@ -42,11 +42,6 @@ RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php5/fpm/php.ini
 
 ADD nginx/default   /etc/nginx/sites-available/default
 
-# Install nodejs
-RUN curl -sL https://deb.nodesource.com/setup | bash -
-RUN apt-get install -y nodejs
-RUN npm install express \
-                serve-static
 
 # Install ssh key
 RUN mkdir -p /root/.ssh/
@@ -60,8 +55,7 @@ RUN php --version
 RUN composer --version
 
 # Install Satis and Satisfy
-RUN composer create-project composer/satis --stability=dev --keep-vcs
-RUN git clone https://github.com/ypereirareis/satisfy.git && composer install --working-dir=satisfy
+RUN composer create-project playbloom/satisfy --stability=dev
 
 ADD scripts/crontab /etc/cron.d/satis-cron
 RUN chmod 0644 /etc/cron.d/satis-cron
@@ -80,6 +74,5 @@ WORKDIR /app
 
 CMD ["/bin/bash", "/app/scripts/startup.sh"]
 
-EXPOSE 3000
 EXPOSE 80
 EXPOSE 443
