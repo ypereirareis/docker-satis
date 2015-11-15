@@ -10,9 +10,4 @@ satis:
     environment:
         PRIVATE_REPO_DOMAIN_LIST: bitbucket.org gitlab.com github.com
         CRONTAB_FREQUENCY: "*/1 * * * *"
-        VIRTUAL_HOST: satis.dev.zol.fr
-        REPOSITORY_NAME: ZOL Private packagist
-        REPOSITORY_URL: satis.dev.zol.fr
-
-
-
+        VIRTUAL_HOST: satis.dev
