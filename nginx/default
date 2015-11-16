@@ -2,7 +2,6 @@ server {
     listen  80;
 
     root /satisfy/web;
-    index index.php index.html index.htm;
 
     # Make site accessible from http://set-ip-address.xip.io
     server_name localhost;
@@ -13,7 +12,7 @@ server {
     charset utf-8;
 
     location / {
-        try_files $uri $uri/ /index.html /index.php?$query_string;
+        try_files $uri $uri/ /index.php?$query_string;
     }
 
     location = /favicon.ico { log_not_found off; access_log off; }
@@ -40,3 +39,5 @@ server {
         deny all;
     }
 }
+
+

@@ -7,6 +7,9 @@ This is always an image built based on master branch.
 ## v3.0
 
 * Satisfy auth activated by default
+* No more NodeJS serve static and /build url
+* Everything accessible from the same URL and port 80.
+* `/admin` to access admin section
 
 ```php
 $app['auth.use_login_form'] = true;

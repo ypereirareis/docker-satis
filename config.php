@@ -59,3 +59,5 @@ $app['auth.users'] = array(
  * Ignored if auth.use_login_form is set to true
  */
 $app['auth.use_google_openid'] = false;
+
+

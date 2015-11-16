@@ -71,8 +71,8 @@ fi
 
 
 chmod -R 777 /app/config.json
-service php5-fpm start && nginx &
 
-echo " >> Starting node web server"
-node /app/server.js
+service php5-fpm start && nginx
+
+
 
