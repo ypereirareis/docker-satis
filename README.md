@@ -1,9 +1,6 @@
 # Docker Satis
 
-A docker image and configuration to run [Satis](https://github.com/composer/satis) very easily in seconds:
-
-* Automatically (cron every minute)
-* Manually (http://127.0.0.1:3033/build)
+A docker image and configuration to run [Satis](https://github.com/composer/satis) very easily in seconds.
 
 **DO NOT forget to create a `config.json` file compatible with satis in your directory before starting the docker container.**
 
@@ -52,11 +49,7 @@ Cache must be shared with the host to be reused when you restart the container.
 
 ## Satis Home page
 
-[http://127.0.0.1:3033](http://127.0.0.1:3033) (but you can map another port)
-
-## Satis manual build
-
-[http://127.0.0.1:3033/build](http://127.0.0.1:3033/build)
+[http://127.0.0.1](http://127.0.0.1) (but you can map another port)
 
 ## Satisfy
 
@@ -65,10 +58,6 @@ Satisfy allows you to add repositories in your satis configuration file with a w
 Once the container is started, just go to:
 
 [http://127.0.0.1/admin](http://127.0.0.1/admin)
-
-## Webhook
-
-`POST http://127.0.0.1:3033/build`
 
 ## Access Satis from outside
 
