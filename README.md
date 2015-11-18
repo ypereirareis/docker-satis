@@ -7,13 +7,13 @@ A docker image and configuration to run [Satis](https://github.com/composer/sati
 ## Run the container
 
 ```
-docker run -it -p 3033:3000 -p 80:80 \
+docker run -p 80:80 \
   -v $(pwd):/app \
   -v "${HOME}/.ssh/id_rsa":/var/tmp/id \
   -v /var/tmp/composer:/root/.composer \
   -e PRIVATE_REPO_DOMAIN_LIST=toto.tata.tutu.com \
   -e CRONTAB_FREQUENCY="*/10 * * * *" \
-  -d ypereirareis/docker-satis:2.0.0
+  -d ypereirareis/docker-satis:3.1
 ```
 
 **Crontab**
@@ -70,7 +70,7 @@ server {
     server_name satis.domain.tld;
 
     location / {
-        proxy_pass http://127.0.0.1:3033;
+        proxy_pass http://127.0.0.1:80;
     }
 }
 ```
@@ -86,14 +86,14 @@ And run these two containers:
 then
 
 ```
-docker run --rm -it -p 3033:3000 \
+docker run -p 8080:80 \
   -v $(pwd):/app \
   -v "${HOME}/.ssh/id_rsa":/var/tmp/id \
   -v /var/tmp/composer:/root/.composer \
   -e PRIVATE_REPO_DOMAIN_LIST=foo.example.com \
   -e CRONTAB_FREQUENCY="*/5 * * * *" \
   -e VIRTUAL_HOST="satisfy.local.dev" \
-  ypereirareis/docker-satis:2.0.0
+  ypereirareis/docker-satis:3.1
 ```
 
 and you will access the **Satisfy** web page through:
