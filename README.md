@@ -13,7 +13,7 @@ docker run -p 80:80 \
   -v /var/tmp/composer:/root/.composer \
   -e PRIVATE_REPO_DOMAIN_LIST=toto.tata.tutu.com \
   -e CRONTAB_FREQUENCY="*/10 * * * *" \
-  -d ypereirareis/docker-satis:3.1
+  -d ypereirareis/docker-satis:latest
 ```
 
 **Crontab**
@@ -93,7 +93,7 @@ docker run -p 8080:80 \
   -e PRIVATE_REPO_DOMAIN_LIST=foo.example.com \
   -e CRONTAB_FREQUENCY="*/5 * * * *" \
   -e VIRTUAL_HOST="satisfy.local.dev" \
-  ypereirareis/docker-satis:3.1
+  ypereirareis/docker-satis:latest
 ```
 
 and you will access the **Satisfy** web page through:
