@@ -58,18 +58,19 @@ ADD scripts/crontab /etc/cron.d/satis-cron
 RUN chmod 0644 /etc/cron.d/satis-cron
 RUN touch /var/log/satis-cron.log
 
-COPY . /app
+COPY scripts /scripts
+RUN chmod +x /scripts/startup.sh /scripts/build.sh
 
 ADD config.php /satisfy/app/config.php
 RUN chmod -R 777 /satisfy
 
-RUN chmod +x /app/scripts/startup.sh
+ADD config.json config.php /app
 
 VOLUME ["/app"]
 
 WORKDIR /app
 
-CMD ["/bin/bash", "/app/scripts/startup.sh"]
+CMD ["/bin/bash", "/scripts/startup.sh"]
 
 EXPOSE 80
 EXPOSE 443
