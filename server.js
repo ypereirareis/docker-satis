@@ -3,7 +3,6 @@ var sys = require('sys');
 var exec = require('child_process').exec;
 var express = require('express');
 var app = express();
-var serveStatic = require('serve-static');
 
 
 // Add headers
@@ -15,10 +14,9 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use(serveStatic('/satis/web', {'index': ['index.html']}))
 
 var buildHook = function (req, res) {
-  exec("scripts/build.sh", function (error, stdout, stderr) {
+  exec("/app/scripts/build.sh", function (error, stdout, stderr) {
     if (stdout) res.end(stdout);
   });
 };

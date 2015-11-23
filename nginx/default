@@ -39,5 +39,3 @@ server {
         deny all;
     }
 }
-
-

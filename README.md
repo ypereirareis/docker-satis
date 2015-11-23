@@ -3,110 +3,154 @@
 A docker image and configuration to run [Satis](https://github.com/composer/satis) very easily in seconds:
 
 * Automatically (cron every minute)
-* Manually (http://127.0.0.1:3033/build)
+* Manually ([http://127.0.0.1:3333/build](http://127.0.0.1:3333/build))
+* Admin ([http://127.0.0.1](http://127.0.0.1))
 
-**DO NOT forget to create a `config.json` file compatible with satis in your directory before starting the docker container.**
+## Requirements
 
-## Run the container
+* docker
+* docker-compose
+* make
+
+## The default config file for satis looks like this:
+
+```json
+{
+    "name": "My Private Repo",
+    "homepage": "https://satis.domain.tld",
+    "repositories": [
+    ],
+    "require":[],
+    "require-all":true,
+    "require-dependencies":true,
+    "require-dev-dependencies":true,
+    "minimum-stability":"dev"
+}
 
 ```
-docker run -it -p 3033:3000 -p 80:80 \
-  -v $(pwd):/app \
-  -v "${HOME}/.ssh/id_rsa":/var/tmp/id \
-  -v /var/tmp/composer:/root/.composer \
-  -e PRIVATE_REPO_DOMAIN_LIST=toto.tata.tutu.com \
-  -e CRONTAB_FREQUENCY="*/10 * * * *" \
-  -d ypereirareis/docker-satis:2.0.0
+
+## Service management
+
+* **Start**
+
+```
+make start
 ```
 
-**Crontab**
+* **Stop**
 
-By default, building script is executed every minute thanks to the crontab configuration
+```
+make stop
+```
 
-`* * * * * root /satis/build.sh >> /var/log/satis-cron.log 2>&1`
+* **Remove**
 
-You can override this value with an ENV variable:
+```
+make remove
+```
 
-`-e CRONTAB_FREQUENCY="*/10 * * * *"`
+* **Status**
 
-Or you can disable cron with this ENV variable value:
+```
+make state
+```
 
-`-e CRONTAB_FREQUENCY="-1"` or `-e CRONTAB_FREQUENCY=-1`
+## Configuration override (if needed)
 
-**SSH key**
+* Add your own custom `config.json` (aka satis.json)
+* Add your own custom `config.php` for Satisfy
 
-The container needs to know the ssh key you aded in your private repo.
+```
+satis:
+    image: ypereirareis/docker-satis:3.0
+    volumes:
+        - ./config.php:/app/config.php
+        - ./config.json:/app/config.json
+```
 
-`-v "${HOME}/.ssh/id_rsa":/var/tmp/id`
+## **Build frequency**
 
-The ssh fingerprint of the private repos servers need to be added in the known_hosts file inside the container that's why we specify the URL through ENV variable.
+* By default, building script is executed every minute thanks to the docker-compose configuration
 
-`-e PRIVATE_REPO_DOMAIN_LIST=foo.example.com bar.exemple.com baz.exemple.com`
+```
+satis:
+    image: ypereirareis/docker-satis:3.0
+    environment:
+        CRONTAB_FREQUENCY: "*/1 * * * *"
+```
 
-**Composer cache**
+* You can override this value changing the cron configuration: `*/5 * * * * OR */10 * * * *`
+* Or you can disable cron with: `CRONTAB_FREQUENCY=-1`
 
-Cache must be shared with the host to be reused when you restart the container.
+## SSH key
 
-`-v /var/tmp/composer:/root/.composer`
+* The container needs to know the ssh key you added in your private repo.
+
+```
+satis:
+    image: ypereirareis/docker-satis:3.0
+    volumes:
+        - "~/.ssh/id_rsa:/var/tmp/id"
+```
+
+* The ssh fingerprints of private repos servers need to be added in the known_hosts file inside the container that's why we specify the URL through ENV variable.
+
+```
+satis:
+    image: ypereirareis/docker-satis:3.0
+    environment:
+        PRIVATE_REPO_DOMAIN_LIST: bitbucket.org gitlab.com github.com
+```
+
+## Composer cache
+
+Cache should be shared with the host to be reused when you restart the container, for better performance.
+
+```
+satis:
+    image: ypereirareis/docker-satis:3.0
+    volumes:
+        - "/var/tmp/composer:/root/.composer"
+```
 
 
-## Satis Home page
+## Satis/Satisfy access
 
-[http://127.0.0.1:3033](http://127.0.0.1:3033) (but you can map another port)
+* Home page
+[http://127.0.0.1](http://127.0.0.1)
 
-## Satis manual build
+* Manual build / Web hook
+[http://127.0.0.1:3333/build](http://127.0.0.1:3333/build)
 
-[http://127.0.0.1:3033/build](http://127.0.0.1:3033/build)
-
-## Satisfy
-
-Satisfy allows you to add repositories in your satis configuration file with a web interface.
-
-Once the container is started, just go to:
-
+* Admin
 [http://127.0.0.1/admin](http://127.0.0.1/admin)
 
-## Webhook
+## Ports
 
-`POST http://127.0.0.1:3033/build`
+If you want to build on port 8888 and access the interface on port 5000 :
 
-## Access Satis from outside
+```
+satis:
+    image: ypereirareis/docker-satis:3.0
+    ports:
+        - 8888:3000
+        - 5000:80
+
+```
+
+## Outside world
 
 If you want to give access satis to the outside world, you should use a reverse proxy.
 
-Below is a working setup for Nginx:
+Below is a working setup for NGINX:
 
 ```
 server {
     server_name satis.domain.tld;
 
     location / {
-        proxy_pass http://127.0.0.1:3033;
+        proxy_pass http://127.0.0.1:80;
     }
 }
 ```
 
-Or have a look at: https://github.com/jwilder/nginx-proxy
-
-And run these two containers:
-
-```
- docker run -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock jwilder/nginx-proxy
-```
-
-then
-
-```
-docker run --rm -it -p 3033:3000 \
-  -v $(pwd):/app \
-  -v "${HOME}/.ssh/id_rsa":/var/tmp/id \
-  -v /var/tmp/composer:/root/.composer \
-  -e PRIVATE_REPO_DOMAIN_LIST=foo.example.com \
-  -e CRONTAB_FREQUENCY="*/5 * * * *" \
-  -e VIRTUAL_HOST="satisfy.local.dev" \
-  ypereirareis/docker-satis:2.0.0
-```
-
-and you will access the **Satisfy** web page through:
-
-[http://satisfy.local.dev/](http://satisfy.local.dev/)

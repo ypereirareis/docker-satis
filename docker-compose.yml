@@ -4,10 +4,10 @@ satis:
     volumes:
         - "/var/tmp/composer:/root/.composer"
         - "~/.ssh/id_rsa:/var/tmp/id"
-        - ./config.php:/app/config.php
-        - ./config.json:/app/config.json
-        - ./:/app
+
     environment:
         PRIVATE_REPO_DOMAIN_LIST: bitbucket.org gitlab.com github.com
         CRONTAB_FREQUENCY: "*/1 * * * *"
-        VIRTUAL_HOST: satis.dev
+        VIRTUAL_HOST: satis.localhost
+    ports:
+        - 3333:3000

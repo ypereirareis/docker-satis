@@ -42,6 +42,11 @@ RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php5/fpm/php.ini
 
 ADD nginx/default   /etc/nginx/sites-available/default
 
+# Install nodejs
+RUN curl -sL https://deb.nodesource.com/setup | bash -
+RUN apt-get install -y nodejs
+RUN npm install express \
+                serve-static
 
 # Install ssh key
 RUN mkdir -p /root/.ssh/
@@ -50,22 +55,27 @@ RUN touch /root/.ssh/known_hosts
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-
 # Install Satis and Satisfy
 RUN composer create-project playbloom/satisfy --stability=dev
+
+COPY FilePersister.php /satisfy/src/Playbloom/Satisfy/Model/FilePersister.php
+
+ADD scripts /app/scripts
 
 ADD scripts/crontab /etc/cron.d/satis-cron
 RUN chmod 0644 /etc/cron.d/satis-cron
 RUN touch /var/log/satis-cron.log
 
-COPY . /app
+ADD config.json /app/config.json
+RUN chmod 777 /app/config.json
+
+ADD server.js /app/server.js
+RUN chmod 777 /app/server.js
 
 ADD config.php /satisfy/app/config.php
 RUN chmod -R 777 /satisfy
 
 RUN chmod +x /app/scripts/startup.sh
-
-VOLUME ["/app"]
 
 WORKDIR /app
 
