@@ -66,9 +66,11 @@ ADD scripts/crontab /etc/cron.d/satis-cron
 RUN chmod 0644 /etc/cron.d/satis-cron
 RUN touch /var/log/satis-cron.log
 
-
 ADD config.json /app/config.json
 RUN chmod 777 /app/config.json
+
+ADD server.js /app/server.js
+RUN chmod 777 /app/server.js
 
 ADD config.php /satisfy/app/config.php
 RUN chmod -R 777 /satisfy
