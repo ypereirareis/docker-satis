@@ -4,6 +4,11 @@
 
 This is always an image built based on master branch.
 
+## v3.1
+
+* Move scripts to separate directory to prevent overwrite when specifying app volume
+* Update readme to better reflect current status of project
+
 ## v3.0
 
 * Satisfy auth activated by default

@@ -1,22 +1,19 @@
 # Docker Satis
 
-A docker image and configuration to run [Satis](https://github.com/composer/satis) very easily in seconds:
-
-* Automatically (cron every minute)
-* Manually (http://127.0.0.1:3033/build)
+A docker image and configuration to run [Satis](https://github.com/composer/satis) very easily in seconds.
 
 **DO NOT forget to create a `config.json` file compatible with satis in your directory before starting the docker container.**
 
 ## Run the container
 
 ```
-docker run -it -p 3033:3000 -p 80:80 \
+docker run -p 80:80 \
   -v $(pwd):/app \
   -v "${HOME}/.ssh/id_rsa":/var/tmp/id \
   -v /var/tmp/composer:/root/.composer \
   -e PRIVATE_REPO_DOMAIN_LIST=toto.tata.tutu.com \
   -e CRONTAB_FREQUENCY="*/10 * * * *" \
-  -d ypereirareis/docker-satis:2.0.0
+  -d ypereirareis/docker-satis:latest
 ```
 
 **Crontab**
@@ -52,11 +49,7 @@ Cache must be shared with the host to be reused when you restart the container.
 
 ## Satis Home page
 
-[http://127.0.0.1:3033](http://127.0.0.1:3033) (but you can map another port)
-
-## Satis manual build
-
-[http://127.0.0.1:3033/build](http://127.0.0.1:3033/build)
+[http://127.0.0.1](http://127.0.0.1) (but you can map another port)
 
 ## Satisfy
 
@@ -65,10 +58,6 @@ Satisfy allows you to add repositories in your satis configuration file with a w
 Once the container is started, just go to:
 
 [http://127.0.0.1/admin](http://127.0.0.1/admin)
-
-## Webhook
-
-`POST http://127.0.0.1:3033/build`
 
 ## Access Satis from outside
 
@@ -81,7 +70,7 @@ server {
     server_name satis.domain.tld;
 
     location / {
-        proxy_pass http://127.0.0.1:3033;
+        proxy_pass http://127.0.0.1:80;
     }
 }
 ```
@@ -97,14 +86,14 @@ And run these two containers:
 then
 
 ```
-docker run --rm -it -p 3033:3000 \
+docker run -p 8080:80 \
   -v $(pwd):/app \
   -v "${HOME}/.ssh/id_rsa":/var/tmp/id \
   -v /var/tmp/composer:/root/.composer \
   -e PRIVATE_REPO_DOMAIN_LIST=foo.example.com \
   -e CRONTAB_FREQUENCY="*/5 * * * *" \
   -e VIRTUAL_HOST="satisfy.local.dev" \
-  ypereirareis/docker-satis:2.0.0
+  ypereirareis/docker-satis:latest
 ```
 
 and you will access the **Satisfy** web page through:
