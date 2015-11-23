@@ -12,6 +12,7 @@ DEFAULT_CRONTAB_FREQUENCY_ESCAPED=$(printf '%s\n' "${DEFAULT_CRONTAB_FREQUENCY}"
 [ -z "$CRONTAB_FREQUENCY" ] && CRONTAB_FREQUENCY="$DEFAULT_CRONTAB_FREQUENCY"
 CRONTAB_FREQUENCY_ESCAPED=$(printf '%s\n' "${CRONTAB_FREQUENCY}" | sed 's/[[\.*^$/]/\\&/g')
 
+chmod 777 /app/config.json
 echo ""
 cat /app/config.json
 echo ""
@@ -70,9 +71,9 @@ if [[ -f /app/scripts/crontab ]]; then
 fi
 
 
-chmod -R 777 /app/config.json
-service php5-fpm start && nginx &
+node server.js &
 
-echo " >> Starting node web server"
-node /app/server.js
+service php5-fpm start && nginx
+
+echo " > Ready !!!"
 

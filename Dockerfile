@@ -27,14 +27,14 @@ RUN apt-get update && apt-get install -y --force-yes --no-install-recommends \
 	php5-curl \
 	php5-intl \
 	php5-fpm \
-	php-apc
+	php-apc \
+	nginx \
+	ssh \
+	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php5/fpm/php.ini
 RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php5/cli/php.ini
 
-RUN apt-get install -y --force-yes nginx ssh
-
-RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf
@@ -55,31 +55,29 @@ RUN touch /root/.ssh/known_hosts
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Display version information
-RUN php --version
-RUN composer --version
-
 # Install Satis and Satisfy
-RUN composer create-project composer/satis --stability=dev --keep-vcs
-RUN git clone https://github.com/ypereirareis/satisfy.git && composer install --working-dir=satisfy
+RUN composer create-project playbloom/satisfy --stability=dev
+
+COPY FilePersister.php /satisfy/src/Playbloom/Satisfy/Model/FilePersister.php
+
+ADD scripts /app/scripts
 
 ADD scripts/crontab /etc/cron.d/satis-cron
 RUN chmod 0644 /etc/cron.d/satis-cron
 RUN touch /var/log/satis-cron.log
 
-COPY . /app
+
+ADD config.json /app/config.json
+RUN chmod 777 /app/config.json
 
 ADD config.php /satisfy/app/config.php
 RUN chmod -R 777 /satisfy
 
 RUN chmod +x /app/scripts/startup.sh
 
-VOLUME ["/app"]
-
 WORKDIR /app
 
 CMD ["/bin/bash", "/app/scripts/startup.sh"]
 
-EXPOSE 3000
 EXPOSE 80
 EXPOSE 443

@@ -4,6 +4,10 @@
 
 This is always an image built based on master branch.
 
+## v3.1
+
+* Update readme to better reflect current status of project
+
 ## v3.0
 
 * Satisfy auth activated by default
