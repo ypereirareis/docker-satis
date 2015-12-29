@@ -14,6 +14,7 @@ A docker image and configuration to run [Satis](https://github.com/composer/sati
 
 ## The default config file for satis looks like this:
 
+In config.json:
 ```json
 {
     "name": "My Private Repo",
@@ -60,7 +61,8 @@ make state
 * Add your own custom `config.json` (aka satis.json)
 * Add your own custom `config.php` for Satisfy
 
-```
+```yml
+# docker-compose.yml
 satis:
     image: ypereirareis/docker-satis:3.0
     volumes:
@@ -72,7 +74,8 @@ satis:
 
 * By default, building script is executed every minute thanks to the docker-compose configuration
 
-```
+```yml
+# docker-compose.yml
 satis:
     image: ypereirareis/docker-satis:3.0
     environment:
@@ -86,7 +89,8 @@ satis:
 
 * The container needs to know the ssh key you added in your private repo.
 
-```
+```yml
+# docker-compose.yml
 satis:
     image: ypereirareis/docker-satis:3.0
     volumes:
@@ -95,7 +99,8 @@ satis:
 
 * The ssh fingerprints of private repos servers need to be added in the known_hosts file inside the container that's why we specify the URL through ENV variable.
 
-```
+```yml
+# docker-compose.yml
 satis:
     image: ypereirareis/docker-satis:3.0
     environment:
@@ -106,11 +111,13 @@ satis:
 
 Cache should be shared with the host to be reused when you restart the container, for better performance.
 
-```
+```yml
+# docker-compose.yml
 satis:
     image: ypereirareis/docker-satis:3.0
     volumes:
         - "/var/tmp/composer:/root/.composer"
+        - "/var/tmp/composer/dist:/satisfy/web/dist"
 ```
 
 
@@ -129,7 +136,8 @@ satis:
 
 If you want to build on port 1234 and access the interface on port 5678 :
 
-```
+In docker-compose.yml:
+```yml
 satis:
     image: ypereirareis/docker-satis:3.0
     ports:
