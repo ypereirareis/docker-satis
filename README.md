@@ -136,8 +136,9 @@ satis:
 
 If you want to build on port 1234 and access the interface on port 5678 :
 
-In docker-compose.yml:
 ```yml
+# docker-compose.yml
+# Expose ports. Specify both ports (HOST:CONTAINER)
 satis:
     image: ypereirareis/docker-satis:3.0
     ports:
