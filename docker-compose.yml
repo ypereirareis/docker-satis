@@ -10,4 +10,5 @@ satis:
         CRONTAB_FREQUENCY: "*/1 * * * *"
         VIRTUAL_HOST: satis.localhost
     ports:
-        - 3333:3000
+        - 3000:3000
+        - 80:80
