@@ -3,7 +3,7 @@
 A docker image and configuration to run [Satis](https://github.com/composer/satis) very easily in seconds:
 
 * Automatically (cron every minute)
-* Manually ([http://127.0.0.1:3333/build](http://127.0.0.1:3333/build))
+* Manually ([http://127.0.0.1:3000/build](http://127.0.0.1:3000/build))
 * Admin ([http://127.0.0.1](http://127.0.0.1))
 
 ## Requirements
@@ -120,21 +120,21 @@ satis:
 [http://127.0.0.1](http://127.0.0.1)
 
 * Manual build / Web hook
-[http://127.0.0.1:3333/build](http://127.0.0.1:3333/build)
+[http://127.0.0.1:3000/build](http://127.0.0.1:3000/build)
 
 * Admin
 [http://127.0.0.1/admin](http://127.0.0.1/admin)
 
-## Ports
+## Custom ports
 
-If you want to build on port 8888 and access the interface on port 5000 :
+If you want to build on port 1234 and access the interface on port 5678 :
 
 ```
 satis:
     image: ypereirareis/docker-satis:3.0
     ports:
-        - 8888:3000
-        - 5000:80
+        - 1234:3000
+        - 5678:80
 
 ```
 
