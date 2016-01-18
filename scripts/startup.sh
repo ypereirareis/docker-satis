@@ -47,6 +47,12 @@ cp /var/tmp/id /root/.ssh/id_rsa
 echo " >> Building Satis for the first time"
 scripts/build.sh
 
+if [[ -f /app/scripts/crontab ]]; then
+  cp /app/scripts/crontab /etc/cron.d/satis-cron
+  chmod 0644 /etc/cron.d/satis-cron
+  touch /var/log/satis-cron.log
+fi
+
 if [[ $CRONTAB_FREQUENCY == -1 ]]; then
 
   echo " > No Cron"
@@ -63,13 +69,6 @@ fi
 
 # Copy custom config if exists
 [[ -f /app/config.php ]] && cp /app/config.php  /satisfy/app/config.php
-
-if [[ -f /app/scripts/crontab ]]; then
-  cp /app/scripts/crontab /etc/cron.d/satis-cron
-  chmod 0644 /etc/cron.d/satis-cron
-  touch /var/log/satis-cron.log
-fi
-
 
 node server.js &
 
