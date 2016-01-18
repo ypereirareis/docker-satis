@@ -6,7 +6,7 @@ Red='\033[0;31m'          # Red
 Green='\033[0;32m'        # Green
 Yellow='\033[0;33m'       # Yellow
 
-DEFAULT_CRONTAB_FREQUENCY="* * * * *"
+DEFAULT_CRONTAB_FREQUENCY="*/1 * * * *"
 DEFAULT_CRONTAB_FREQUENCY_ESCAPED=$(printf '%s\n' "${DEFAULT_CRONTAB_FREQUENCY}" | sed 's/[[\.*^$/]/\\&/g')
 
 [ -z "$CRONTAB_FREQUENCY" ] && CRONTAB_FREQUENCY="$DEFAULT_CRONTAB_FREQUENCY"
@@ -47,6 +47,12 @@ cp /var/tmp/id /root/.ssh/id_rsa
 echo " >> Building Satis for the first time"
 scripts/build.sh
 
+if [[ -f /app/scripts/crontab ]]; then
+  cp /app/scripts/crontab /etc/cron.d/satis-cron
+  chmod 0644 /etc/cron.d/satis-cron
+  touch /var/log/satis-cron.log
+fi
+
 if [[ $CRONTAB_FREQUENCY == -1 ]]; then
 
   echo " > No Cron"
@@ -63,13 +69,6 @@ fi
 
 # Copy custom config if exists
 [[ -f /app/config.php ]] && cp /app/config.php  /satisfy/app/config.php
-
-if [[ -f /app/scripts/crontab ]]; then
-  cp /app/scripts/crontab /etc/cron.d/satis-cron
-  chmod 0644 /etc/cron.d/satis-cron
-  touch /var/log/satis-cron.log
-fi
-
 
 node server.js &
 
