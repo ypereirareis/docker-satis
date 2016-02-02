@@ -125,6 +125,10 @@ satis:
 * Admin
 [http://127.0.0.1/admin](http://127.0.0.1/admin)
 
+Default credentials are : **admin / foo** as you can see in [this config file](./config.php#L43-55).
+You will also find instructions to change or add credentials in this section of the file.
+
+
 ## Ports
 
 If you want to build on port 8888 and access the interface on port 5000 :

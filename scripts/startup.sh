@@ -18,7 +18,6 @@ cat /app/config.json
 echo ""
 echo ""
 
-
 if [ ! -z "$PRIVATE_REPO_DOMAIN" ]; then
   echo ""
   echo -e "$Yellow"
@@ -43,7 +42,6 @@ done
 echo " >> Copying host ssh key from /var/tmp/id to /root/.ssh/id_rsa"
 cp /var/tmp/id /root/.ssh/id_rsa
 
-
 echo " >> Building Satis for the first time"
 scripts/build.sh
 
@@ -63,13 +61,6 @@ fi
 
 # Copy custom config if exists
 [[ -f /app/config.php ]] && cp /app/config.php  /satisfy/app/config.php
-
-if [[ -f /app/scripts/crontab ]]; then
-  cp /app/scripts/crontab /etc/cron.d/satis-cron
-  chmod 0644 /etc/cron.d/satis-cron
-  touch /var/log/satis-cron.log
-fi
-
 
 node server.js &
 

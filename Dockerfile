@@ -58,8 +58,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Install Satis and Satisfy
 RUN composer create-project playbloom/satisfy --stability=dev
 
-COPY FilePersister.php /satisfy/src/Playbloom/Satisfy/Model/FilePersister.php
-
 ADD scripts /app/scripts
 
 ADD scripts/crontab /etc/cron.d/satis-cron
