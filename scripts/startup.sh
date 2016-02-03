@@ -12,7 +12,6 @@ DEFAULT_CRONTAB_FREQUENCY_ESCAPED=$(printf '%s\n' "${DEFAULT_CRONTAB_FREQUENCY}"
 [ -z "$CRONTAB_FREQUENCY" ] && CRONTAB_FREQUENCY="$DEFAULT_CRONTAB_FREQUENCY"
 CRONTAB_FREQUENCY_ESCAPED=$(printf '%s\n' "${CRONTAB_FREQUENCY}" | sed 's/[[\.*^$/]/\\&/g')
 
-chmod 777 /app/config.json
 echo ""
 cat /app/config.json
 echo ""
@@ -46,25 +45,14 @@ echo " >> Building Satis for the first time"
 scripts/build.sh
 
 if [[ $CRONTAB_FREQUENCY == -1 ]]; then
-
   echo " > No Cron"
-
 else
-
   echo " > Crontab frequency set to: ${CRONTAB_FREQUENCY}"
   sed -i "s/${DEFAULT_CRONTAB_FREQUENCY_ESCAPED}/${CRONTAB_FREQUENCY_ESCAPED}/g" /etc/cron.d/satis-cron
-
-  echo " >> Starting cron"
-  cron &
-
 fi
 
 # Copy custom config if exists
 [[ -f /app/config.php ]] && cp /app/config.php  /satisfy/app/config.php
 
-node server.js &
 
-service php5-fpm start && nginx
-
-echo " > Ready !!!"
-
+exit 0

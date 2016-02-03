@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	git \
 	curl \
 	wget \
+	supervisor \
 	build-essential \
 	software-properties-common \
 	python-software-properties
@@ -73,11 +74,17 @@ RUN chmod 777 /app/server.js
 ADD config.php /satisfy/app/config.php
 RUN chmod -R 777 /satisfy
 
+ADD supervisor/0-install.conf /etc/supervisor/conf.d/0-install.conf
+ADD supervisor/1-cron.conf /etc/supervisor/conf.d/1-cron.conf
+ADD supervisor/2-nginx.conf /etc/supervisor/conf.d/2-nginx.conf
+ADD supervisor/3-php.conf /etc/supervisor/conf.d/3-php.conf
+ADD supervisor/4-node.conf /etc/supervisor/conf.d/4-node.conf
+
 RUN chmod +x /app/scripts/startup.sh
 
 WORKDIR /app
 
-CMD ["/bin/bash", "/app/scripts/startup.sh"]
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
 
 EXPOSE 80
 EXPOSE 443

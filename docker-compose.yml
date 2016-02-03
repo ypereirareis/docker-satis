@@ -8,6 +8,6 @@ satis:
     environment:
         PRIVATE_REPO_DOMAIN_LIST: bitbucket.org gitlab.com github.com
         CRONTAB_FREQUENCY: "*/1 * * * *"
-        VIRTUAL_HOST: satis.localhost.dev.zol.fr
+        VIRTUAL_HOST: satis.localhost
     ports:
         - 3333:3000
