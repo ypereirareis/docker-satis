@@ -20,7 +20,6 @@ A docker image and configuration to run [Satis](https://github.com/composer/sati
     "homepage": "https://satis.domain.tld",
     "repositories": [
     ],
-    "require":[],
     "require-all":true,
     "require-dependencies":true,
     "require-dev-dependencies":true,
@@ -54,6 +53,20 @@ make remove
 ```
 make state
 ```
+
+## Satis/Satisfy access
+
+* Home page
+[http://127.0.0.1](http://127.0.0.1)
+
+* Manual build / Web hook
+[http://127.0.0.1:3333/build](http://127.0.0.1:3333/build)
+
+* Admin
+[http://127.0.0.1/admin](http://127.0.0.1/admin)
+
+Default credentials are : **admin / foo** as you can see in [this config file](./config.php#L43-55).
+You will also find instructions to change or add credentials in this section of the file.
 
 ## Configuration override (if needed)
 
@@ -113,17 +126,6 @@ satis:
         - "/var/tmp/composer:/root/.composer"
 ```
 
-
-## Satis/Satisfy access
-
-* Home page
-[http://127.0.0.1](http://127.0.0.1)
-
-* Manual build / Web hook
-[http://127.0.0.1:3333/build](http://127.0.0.1:3333/build)
-
-* Admin
-[http://127.0.0.1/admin](http://127.0.0.1/admin)
 
 ## Ports
 

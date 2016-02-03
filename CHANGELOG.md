@@ -4,12 +4,12 @@
 
 This is always an image built based on master branch.
 
-## v3.1
-
-* Update readme to better reflect current status of project
-
 ## v3.0
 
+* Remove useless code to copy crontab
+* Username/login info in the [README.md](README.md)
+* Use the last version of satisfy and satis
+* Update readme to better reflect current status of project
 * Satisfy auth activated by default
 * No more NodeJS serve static and /build url
 * Everything accessible from the same URL and port 80.
