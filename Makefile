@@ -1,4 +1,20 @@
+.PHONY: build build-no-cache up start stop restart state remove bash
+
+###############
+## VARIABLES ##
+###############
 compose=docker-compose
+version=3.0
+image=ypereirareis/docker-satis
+
+#############
+## Targets ##
+#############
+build:
+	docker build -t $(image):$(version) .
+
+build-no-cache:
+	docker build -t $(image):$(version) --no-cache .
 
 up:
 	@echo "== START =="
