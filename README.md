@@ -81,6 +81,15 @@ satis:
         - ./config.json:/app/config.json
 ```
 
+But I advise you to create your own image and Dockerfile:
+
+```shell
+FROM ypereirareis/docker-satis:3.0
+...
+ADD config.php /app/config.php
+ADD config.json /app/config.json
+```
+
 ## **Build frequency**
 
 * By default, building script is executed every minute thanks to the docker-compose configuration
@@ -104,6 +113,15 @@ satis:
     image: ypereirareis/docker-satis:3.0
     volumes:
         - "~/.ssh/id_rsa:/var/tmp/id"
+```
+
+You could add the key into your own image but be careful your ssh key will be in the image (DO NOT SHARE THE IMAGE TO THE WORLD):
+
+```shell
+FROM ypereirareis/docker-satis:3.0
+...
+ADD SSH_PATH/.ssh/id_rsa:/var/tmp/id
+
 ```
 
 * The ssh fingerprints of private repos servers need to be added in the known_hosts file inside the container that's why we specify the URL through ENV variable.
