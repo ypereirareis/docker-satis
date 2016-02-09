@@ -1,21 +1,13 @@
-FROM ubuntu:14.04
+FROM ubuntu:15.10
 
 MAINTAINER Yannick Pereira-Reis <yannick.pereira.reis@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# Install common libs
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --force-yes --no-install-recommends \
 	build-essential \
 	software-properties-common \
-	python-software-properties \
-	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-RUN apt-get update \
-	&& add-apt-repository -y ppa:ondrej/php5 \
-    && add-apt-repository -y ppa:nginx/stable
-
-RUN apt-get update && apt-get install -y --force-yes --no-install-recommends \
+	cron \
 	nano \
 	git \
 	curl \
@@ -32,11 +24,11 @@ RUN apt-get update && apt-get install -y --force-yes --no-install-recommends \
 	php-apc \
 	nginx \
 	ssh \
+	npm \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php5/fpm/php.ini \
 	&& sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php5/cli/php.ini \
-
 	&& echo "daemon off;" >> /etc/nginx/nginx.conf \
 	&& sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf \
 	&& sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php5/fpm/php.ini
@@ -44,9 +36,7 @@ RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php5/fpm/php.ini \
 ADD nginx/default   /etc/nginx/sites-available/default
 
 # Install nodejs
-RUN curl -sL https://deb.nodesource.com/setup | bash -
-RUN apt-get install -y nodejs \
-	&& npm install express serve-static
+RUN npm install express serve-static
 
 # Install ssh key
 RUN mkdir -p /root/.ssh/ && touch /root/.ssh/known_hosts
@@ -55,8 +45,9 @@ RUN mkdir -p /root/.ssh/ && touch /root/.ssh/known_hosts
 # Install prestissimo
 # Install Satis and Satisfy
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-	&& composer global require hirak/prestissimo \
-	&& composer create-project playbloom/satisfy:2.0.6 --stability=dev
+	&& /usr/local/bin/composer global require hirak/prestissimo \
+	&& /usr/local/bin/composer create-project playbloom/satisfy:2.0.6 --stability=dev \
+	&& chmod -R 777 /satisfy
 
 ADD scripts /app/scripts
 
@@ -69,7 +60,6 @@ RUN chmod 0644 /etc/cron.d/satis-cron \
 	&& touch /var/log/satis-cron.log \
 	&& chmod 777 /app/config.json \
 	&& chmod 777 /app/server.js \
-	&& chmod -R 777 /satisfy \
 	&& chmod +x /app/scripts/startup.sh
 
 ADD supervisor/0-install.conf /etc/supervisor/conf.d/0-install.conf
