@@ -11,7 +11,6 @@ RUN apt-get update && apt-get install -y --force-yes --no-install-recommends \
 	nano \
 	git \
 	curl \
-	wget \
 	supervisor \
 	php5 \
 	php5-mcrypt \
@@ -47,7 +46,8 @@ RUN mkdir -p /root/.ssh/ && touch /root/.ssh/known_hosts
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
 	&& /usr/local/bin/composer global require hirak/prestissimo \
 	&& /usr/local/bin/composer create-project playbloom/satisfy:2.0.6 --stability=dev \
-	&& chmod -R 777 /satisfy
+	&& chmod -R 777 /satisfy \
+	&& rm -rf /root/.composer/cache/*
 
 ADD scripts /app/scripts
 
