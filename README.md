@@ -1,5 +1,11 @@
 # Docker Satis
 
+[![Build Status](https://travis-ci.org/ypereirareis/docker-satis.svg?branch=master)](https://travis-ci.org/ypereirareis/docker-satis)
+[![Docker Stars](https://img.shields.io/docker/stars/ypereirareis/docker-satis.svg)]()
+[![ImageLayers Size](https://img.shields.io/imagelayers/image-size/ypereirareis/docker-satis/latest.svg)]()
+[![Docker Pulls](https://img.shields.io/docker/pulls/ypereirareis/docker-satis.svg)]()
+[![ImageLayers Layers](https://img.shields.io/imagelayers/layers/ypereirareis/docker-satis/latest.svg)]()
+
 A docker image and configuration to run [Satis](https://github.com/composer/satis) very easily in seconds:
 
 * Automatically (cron every minute)
@@ -75,7 +81,7 @@ You will also find instructions to change or add credentials in this section of 
 
 ```
 satis:
-    image: ypereirareis/docker-satis:3.0
+    image: ypereirareis/docker-satis:4.0
     volumes:
         - ./config.php:/app/config.php
         - ./config.json:/app/config.json
@@ -84,7 +90,7 @@ satis:
 But I advise you to create your own image and Dockerfile:
 
 ```shell
-FROM ypereirareis/docker-satis:3.0
+FROM ypereirareis/docker-satis:4.0
 ...
 ADD config.php /app/config.php
 ADD config.json /app/config.json
@@ -96,7 +102,7 @@ ADD config.json /app/config.json
 
 ```
 satis:
-    image: ypereirareis/docker-satis:3.0
+    image: ypereirareis/docker-satis:4.0
     environment:
         CRONTAB_FREQUENCY: "*/1 * * * *"
 ```
@@ -110,7 +116,7 @@ satis:
 
 ```
 satis:
-    image: ypereirareis/docker-satis:3.0
+    image: ypereirareis/docker-satis:4.0
     volumes:
         - "~/.ssh/id_rsa:/var/tmp/id"
 ```
@@ -118,7 +124,7 @@ satis:
 You could add the key into your own image but be careful your ssh key will be in the image (DO NOT SHARE THE IMAGE TO THE WORLD):
 
 ```shell
-FROM ypereirareis/docker-satis:3.0
+FROM ypereirareis/docker-satis:4.0
 ...
 ADD SSH_PATH/.ssh/id_rsa:/var/tmp/id
 
@@ -128,7 +134,7 @@ ADD SSH_PATH/.ssh/id_rsa:/var/tmp/id
 
 ```
 satis:
-    image: ypereirareis/docker-satis:3.0
+    image: ypereirareis/docker-satis:4.0
     environment:
         PRIVATE_REPO_DOMAIN_LIST: bitbucket.org gitlab.com github.com
 ```
@@ -139,7 +145,7 @@ Cache should be shared with the host to be reused when you restart the container
 
 ```
 satis:
-    image: ypereirareis/docker-satis:3.0
+    image: ypereirareis/docker-satis:4.0
     volumes:
         - "/var/tmp/composer:/root/.composer"
 ```
@@ -151,7 +157,7 @@ If you want to build on port 8888 and access the interface on port 5000 :
 
 ```
 satis:
-    image: ypereirareis/docker-satis:3.0
+    image: ypereirareis/docker-satis:4.0
     ports:
         - 8888:3000
         - 5000:80
@@ -174,3 +180,8 @@ server {
 }
 ```
 
+## Tests
+
+```shell
+./tests.sh
+```

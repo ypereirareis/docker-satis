@@ -1,10 +1,9 @@
 satis:
-    image: ypereirareis/docker-satis:3.0
+    image: ypereirareis/docker-satis:4.0
     hostname: satis
     volumes:
         - "/var/tmp/composer:/root/.composer"
         - "~/.ssh/id_rsa:/var/tmp/id"
-
     environment:
         PRIVATE_REPO_DOMAIN_LIST: bitbucket.org gitlab.com github.com
         CRONTAB_FREQUENCY: "*/1 * * * *"

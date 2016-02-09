@@ -1,10 +1,10 @@
-.PHONY: build build-no-cache up start stop restart state remove bash
+.PHONY: build build-no-cache up start stop restart state remove bash satis-build
 
 ###############
 ## VARIABLES ##
 ###############
 compose=docker-compose
-version=3.0
+version=4.0
 image=ypereirareis/docker-satis
 
 #############
@@ -40,3 +40,7 @@ bash:
 	@echo "== BASH =="
 	@$(compose) run --rm satis bash
 
+
+satis-build:
+	@echo "== SATIS BUILD =="
+	@$(compose) run --rm satis bash -c "cat /app/config.json && ./scripts/build.sh"
