@@ -4,6 +4,14 @@
 
 This is always an image built based on master branch.
 
+## v4.0
+
+* Satisfy version 2.0.6
+* Image size improvement > 1 GB to < 650 MB
+* Less image layers
+* Use of composer prestissimo
+* Tests
+
 ## v3.0
 
 * Remove useless code to copy crontab
@@ -30,7 +38,6 @@ docker run --rm -it -p 3033:3000 \
   ypereirareis/docker-satis:2.0.0
 
 ```
-
 
 ## v1.0.0
 
