@@ -1,5 +1,5 @@
 satis:
-    image: ypereirareis/docker-satis:4.0
+    image: ypereirareis/docker-satis:4.1
     hostname: satis
     volumes:
         - "/var/tmp/composer:/root/.composer"

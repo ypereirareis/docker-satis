@@ -4,7 +4,7 @@
 ## VARIABLES ##
 ###############
 compose=docker-compose
-version=4.0
+version=4.1
 image=ypereirareis/docker-satis
 
 #############
