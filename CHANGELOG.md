@@ -4,6 +4,18 @@
 
 This is always an image built based on master branch.
 
+## v4.2
+
+* Support of custom ssh port for ssh fingerprints (`ssh-keyscan`)
+* Support of both rsa and dsa ssh keys
+
+```
+satis:
+    image: ypereirareis/docker-satis:4.2
+    environment:
+        PRIVATE_REPO_DOMAIN_LIST: bitbucket.org gitlab.com github.com yourownserver.com:54322
+```
+
 ## v4.1
 
 * Satisfy version dev-master
