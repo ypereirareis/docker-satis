@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 IMAGE_NAME="ypereirareis/docker-satis"
-VERSION="4.1"
+VERSION="4.2"
 
 function build() {
   docker build -t "${IMAGE_NAME}:${VERSION}" .
