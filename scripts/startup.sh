@@ -12,6 +12,12 @@ DEFAULT_CRONTAB_FREQUENCY_ESCAPED=$(printf '%s\n' "${DEFAULT_CRONTAB_FREQUENCY}"
 [ -z "$CRONTAB_FREQUENCY" ] && CRONTAB_FREQUENCY="$DEFAULT_CRONTAB_FREQUENCY"
 CRONTAB_FREQUENCY_ESCAPED=$(printf '%s\n' "${CRONTAB_FREQUENCY}" | sed 's/[[\.*^$/]/\\&/g')
 
+SATIS_REPO=${SATIS_REPO:=/app/config.json}
+SATIS_CONFIG=${SATIS_CONFIG:=/app/config.php}
+SATIS_ID_RSA=${SATIS_ID_RSA:=/var/tmp/id}
+
+cp $SATIS_REPO /app/config.json
+
 echo ""
 cat /app/config.json
 echo ""
@@ -44,8 +50,9 @@ for _DOMAIN in $PRIVATE_REPO_DOMAIN_LIST ; do
     fi
 done
 
-echo " >> Copying host ssh key from /var/tmp/id to /root/.ssh/id_rsa"
-cp /var/tmp/id /root/.ssh/id_rsa
+echo " >> Copying host ssh key from $SATIS_ID_RSA to /root/.ssh/id_rsa"
+cp $SATIS_ID_RSA /root/.ssh/id_rsa
+chmod 400 /root/.ssh/id_rsa
 
 echo " >> Building Satis for the first time"
 scripts/build.sh
@@ -58,7 +65,6 @@ else
 fi
 
 # Copy custom config if exists
-[[ -f /app/config.php ]] && cp /app/config.php  /satisfy/app/config.php
-
+[ ! -z "$SATIS_CONFIG" ] && cp $SATIS_CONFIG /satisfy/app/config.php
 
 exit 0
