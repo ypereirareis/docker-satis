@@ -112,13 +112,14 @@ satis:
 
 ## SSH key
 
-* The container needs to know the ssh key you added in your private repo.
+* The container needs to know the ssh key you added in your private repo (and optionally your SSH configuration).
 
 ```
 satis:
     image: ypereirareis/docker-satis:4.2
     volumes:
         - "~/.ssh/id_rsa:/var/tmp/id"
+        - "~/.ssh/config:/var/tmp/sshconf"
 ```
 
 You could add the key into your own image but be careful your ssh key will be in the image (DO NOT SHARE THE IMAGE TO THE WORLD):
@@ -127,7 +128,7 @@ You could add the key into your own image but be careful your ssh key will be in
 FROM ypereirareis/docker-satis:4.2
 ...
 ADD SSH_PATH/.ssh/id_rsa:/var/tmp/id
-
+ADD SSH_PATH/.ssh/config:/var/tmp/sshconf
 ```
 
 * The ssh fingerprints of private repos servers need to be added in the known_hosts file inside the container that's why we specify the URL through ENV variable.
