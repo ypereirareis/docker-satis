@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 SATIS_PATH="/satisfy/vendor"
 SATIS_BIN="/satisfy/bin/satis"
 SATIS_PUBLIC="/satisfy/web/"
