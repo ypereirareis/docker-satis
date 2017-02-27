@@ -33,6 +33,11 @@ fi
 
 touch /root/.ssh/known_hosts
 
+if [ -f /var/tmp/sshconf ]; then
+    echo " >> Copying host ssh config from /var/tmp/sshconf to /root/.ssh/config"
+    cp /var/tmp/sshconf /root/.ssh/config
+fi
+
 echo " >> Creating the correct known_hosts file"
 for _DOMAIN in $PRIVATE_REPO_DOMAIN_LIST ; do
     IFS=':' read -a arr <<< "${_DOMAIN}"
