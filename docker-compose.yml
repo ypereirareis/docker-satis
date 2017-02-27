@@ -1,12 +1,20 @@
-satis:
-    image: ypereirareis/docker-satis:4.2
+version: "2"
+services:
+  satis:
+    image: ypereirareis/docker-satis:4.3
+    container_name: satis-test
     hostname: satis
     volumes:
-        - "/var/tmp/composer:/root/.composer"
-        - "~/.ssh/id_rsa:/var/tmp/id"
+      - "/var/tmp/composer:/root/.composer"
+      - "~/.ssh/id_rsa:/var/tmp/id"
     environment:
-        PRIVATE_REPO_DOMAIN_LIST: bitbucket.org gitlab.com github.com
-        CRONTAB_FREQUENCY: "*/1 * * * *"
-        VIRTUAL_HOST: satis.localhost
+      PRIVATE_REPO_DOMAIN_LIST: bitbucket.org gitlab.com github.com
+      CRONTAB_FREQUENCY: "*/1 * * * *"
+      VIRTUAL_HOST: satis.localhost.dev.zol.fr
     ports:
-        - 3333:3000
+      - 127.0.0.1:3333:3000
+      - 127.0.0.1:8181:80
+networks:
+  default:
+    external:
+      name: nginx-proxy

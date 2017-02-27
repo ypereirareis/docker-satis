@@ -2,7 +2,25 @@
 
 ## Latest
 
-This is always an image built based on master branch.
+This is always an image built based on master branch. (and 4.3 tag for now)
+
+## v4.3
+
+* Fix test script. Docker `exec` returns error code.
+* Fix satis bin path.
+* Correct permissions on private key id_rsa.
+* Allow to setup SSH configuration.
+
+```
+satis:
+    image: ypereirareis/docker-satis:4.3
+```
+
+```
+ FROM ypereirareis/docker-satis:4.3
+ ...
+ ADD SSH_PATH/.ssh/config:/var/tmp/sshconf
+```
 
 ## v4.2
 

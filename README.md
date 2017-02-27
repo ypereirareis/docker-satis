@@ -81,7 +81,7 @@ You will also find instructions to change or add credentials in this section of 
 
 ```
 satis:
-    image: ypereirareis/docker-satis:4.2
+    image: ypereirareis/docker-satis:4.3
     volumes:
         - ./config.php:/app/config.php
         - ./config.json:/app/config.json
@@ -90,7 +90,7 @@ satis:
 But I advise you to create your own image and Dockerfile:
 
 ```shell
-FROM ypereirareis/docker-satis:4.2
+FROM ypereirareis/docker-satis:4.3
 ...
 ADD config.php /app/config.php
 ADD config.json /app/config.json
@@ -102,7 +102,7 @@ ADD config.json /app/config.json
 
 ```
 satis:
-    image: ypereirareis/docker-satis:4.2
+    image: ypereirareis/docker-satis:4.3
     environment:
         CRONTAB_FREQUENCY: "*/1 * * * *"
 ```
@@ -116,7 +116,7 @@ satis:
 
 ```
 satis:
-    image: ypereirareis/docker-satis:4.2
+    image: ypereirareis/docker-satis:4.3
     volumes:
         - "~/.ssh/id_rsa:/var/tmp/id"
         - "~/.ssh/config:/var/tmp/sshconf"
@@ -125,7 +125,7 @@ satis:
 You could add the key into your own image but be careful your ssh key will be in the image (DO NOT SHARE THE IMAGE TO THE WORLD):
 
 ```shell
-FROM ypereirareis/docker-satis:4.2
+FROM ypereirareis/docker-satis:4.3
 ...
 ADD SSH_PATH/.ssh/id_rsa:/var/tmp/id
 ADD SSH_PATH/.ssh/config:/var/tmp/sshconf
@@ -137,7 +137,7 @@ ADD SSH_PATH/.ssh/config:/var/tmp/sshconf
 
 ```
 satis:
-    image: ypereirareis/docker-satis:4.2
+    image: ypereirareis/docker-satis:4.3
     environment:
         PRIVATE_REPO_DOMAIN_LIST: bitbucket.org gitlab.com github.com yourownserver.com:54322
 ```
@@ -148,7 +148,7 @@ Cache should be shared with the host to be reused when you restart the container
 
 ```
 satis:
-    image: ypereirareis/docker-satis:4.2
+    image: ypereirareis/docker-satis:4.3
     volumes:
         - "/var/tmp/composer:/root/.composer"
 ```
@@ -160,7 +160,7 @@ If you want to build on port 8888 and access the interface on port 5000 :
 
 ```
 satis:
-    image: ypereirareis/docker-satis:4.2
+    image: ypereirareis/docker-satis:4.3
     ports:
         - 8888:3000
         - 5000:80
