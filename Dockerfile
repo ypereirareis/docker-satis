@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y --force-yes --no-install-recommends \
 	cron \
 	nano \
 	git \
+	mercurial \
 	curl \
 	supervisor \
 	php5 \
