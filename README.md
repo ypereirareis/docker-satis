@@ -10,7 +10,7 @@ A docker image and configuration to run [Satis](https://github.com/composer/sati
 
 * Automatically (cron every minute)
 * Manually ([http://127.0.0.1:3333/build](http://127.0.0.1:3333/build))
-* Admin ([http://127.0.0.1](http://127.0.0.1))
+* Admin ([http://127.0.0.1:8181/admin/login](http://127.0.0.1:8181/admin/login))
 
 ## Requirements
 
