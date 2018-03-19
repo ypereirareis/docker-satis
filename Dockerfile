@@ -1,4 +1,4 @@
-FROM ubuntu:15.10
+FROM ubuntu:17.10
 
 MAINTAINER Yannick Pereira-Reis <yannick.pereira.reis@gmail.com>
 
@@ -11,26 +11,29 @@ RUN apt-get update && apt-get install -y --force-yes --no-install-recommends \
 	nano \
 	git \
 	curl \
+	zip \
 	supervisor \
-	php5 \
-	php5-mcrypt \
-	php5-tidy \
-	php5-cli \
-	php5-common \
-	php5-curl \
-	php5-intl \
-	php5-fpm \
-	php-apc \
+	php \
+	php-mcrypt \
+	php-tidy \
+	php-cli \
+	php-common \
+	php-curl \
+	php-intl \
+	php-fpm \
+	php-xml \
+	php-mbstring \
+	php-zip \
 	nginx \
 	ssh \
 	npm \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php5/fpm/php.ini \
-	&& sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php5/cli/php.ini \
+RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php/7.1/fpm/php.ini \
+	&& sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php/7.1/cli/php.ini \
 	&& echo "daemon off;" >> /etc/nginx/nginx.conf \
-	&& sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf \
-	&& sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php5/fpm/php.ini
+	&& sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.1/fpm/php-fpm.conf \
+	&& sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.1/fpm/php.ini
 
 ADD nginx/default   /etc/nginx/sites-available/default
 
@@ -60,7 +63,8 @@ RUN chmod 0644 /etc/cron.d/satis-cron \
 	&& touch /var/log/satis-cron.log \
 	&& chmod 777 /app/config.json \
 	&& chmod 777 /app/server.js \
-	&& chmod +x /app/scripts/startup.sh
+	&& chmod +x /app/scripts/startup.sh \
+	&& mkdir -p /run/php
 
 ADD supervisor/0-install.conf /etc/supervisor/conf.d/0-install.conf
 ADD supervisor/1-cron.conf /etc/supervisor/conf.d/1-cron.conf
