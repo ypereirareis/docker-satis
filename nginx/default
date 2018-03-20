@@ -6,8 +6,8 @@ server {
     # Make site accessible from http://set-ip-address.xip.io
     server_name localhost;
 
-    access_log /var/log/nginx/satisfy-access.log;
-    error_log  /var/log/nginx/satisfy-error.log error;
+    access_log /proc/1/fd/1;
+    error_log  /proc/1/fd/2 error;
 
     charset utf-8;
 
