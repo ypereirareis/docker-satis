@@ -27,6 +27,7 @@ RUN apt-get update && apt-get install -y --force-yes --no-install-recommends \
 	nginx \
 	ssh \
 	npm \
+	vim \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php/7.1/fpm/php.ini \
@@ -50,6 +51,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 	&& /usr/local/bin/composer global require hirak/prestissimo \
 	&& /usr/local/bin/composer create-project playbloom/satisfy:dev-master --stability=dev \
 	&& chmod -R 777 /satisfy \
+	&& rm -rf /satisfy/vendor/composer/satis \
+	&& cd /satisfy && composer update -o "composer/satis" \
 	&& rm -rf /root/.composer/cache/*
 
 ADD scripts /app/scripts
@@ -58,12 +61,11 @@ ADD scripts/crontab /etc/cron.d/satis-cron
 ADD config.json /app/config.json
 ADD server.js /app/server.js
 ADD config.php /satisfy/app/config.php
+ADD parameters.satisfy.yml /satisfy/app/config/parameters.yml
 
 RUN chmod 0644 /etc/cron.d/satis-cron \
 	&& touch /var/log/satis-cron.log \
-	&& chmod 777 /app/config.json \
-	&& chmod 777 /app/server.js \
-	&& chmod +x /app/scripts/startup.sh \
+	&& chmod -R 777 /app \
 	&& mkdir -p /run/php
 
 ADD supervisor/0-install.conf /etc/supervisor/conf.d/0-install.conf

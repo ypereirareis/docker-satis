@@ -6,6 +6,6 @@
     "require-all":true,
     "require-dependencies":true,
     "require-dev-dependencies":true,
+    "include-filename": "include\/all$%hash%.json",
     "minimum-stability":"dev"
 }
-

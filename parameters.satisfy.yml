@@ -1,0 +1,6 @@
+parameters:
+    secret: "QrsEr!U4=qBSJH-3&AdTaZp!4R=NX*UD"
+    satis_filename: "/app/config.json"
+    satis_log_path: "%kernel.root_dir%/../var/satis"
+    admin.auth: false
+    admin.users: ~
