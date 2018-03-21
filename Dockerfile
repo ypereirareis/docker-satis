@@ -27,7 +27,6 @@ RUN apt-get update && apt-get install -y --force-yes --no-install-recommends \
 	nginx \
 	ssh \
 	npm \
-	vim \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php/7.1/fpm/php.ini \
