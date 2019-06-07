@@ -1,7 +1,8 @@
 version: "3.2"
 services:
   satis:
-    image: ypereirareis/docker-satis:4.3
+    image: ypereirareis/docker-satis:5.0
+    build: ./
     container_name: satis
     hostname: satis
     env_file:
@@ -14,7 +15,7 @@ services:
       - "./parameters.satisfy.yml:/satisfy/app/config/parameters.yml"
       - "./satis.json:/satisfy/satis.json"
     environment:
-      PRIVATE_REPO_DOMAIN_LIST: bitbucket.org gitlab.com github.com gitlab.sfam.ovh
+      PRIVATE_REPO_DOMAIN_LIST: bitbucket.org gitlab.com github.com
       CRONTAB_FREQUENCY: "*/1 * * * *"
       VIRTUAL_HOST: ${VHOST}
 
