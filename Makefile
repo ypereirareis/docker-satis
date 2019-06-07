@@ -4,14 +4,14 @@
 ## VARIABLES ##
 ###############
 compose=docker-compose
-version=4.3
+version=5.0
 image=ypereirareis/docker-satis
 
 #############
 ## Targets ##
 #############
 build:
-	docker build -t $(image):$(version) .
+	docker-compose build --pull
 
 build-no-cache:
 	docker build -t $(image):$(version) --no-cache .
@@ -40,7 +40,9 @@ bash:
 	@echo "== BASH =="
 	@$(compose) run --rm satis bash
 
+logs:
+	@$(compose) logs -ft
 
 satis-build:
 	@echo "== SATIS BUILD =="
-	@$(compose) run --rm satis bash -c "cat /app/config.json && ./scripts/build.sh"
+	@$(compose) exec satis ./scripts/build.sh

@@ -1,3 +1,6 @@
+#!/bin/bash
+set -e
+
 # Reset
 Color_Off='\033[0m'       # Text Reset
 
@@ -9,15 +12,11 @@ Yellow='\033[0;33m'       # Yellow
 DEFAULT_CRONTAB_FREQUENCY="* * * * *"
 DEFAULT_CRONTAB_FREQUENCY_ESCAPED=$(printf '%s\n' "${DEFAULT_CRONTAB_FREQUENCY}" | sed 's/[[\.*^$/]/\\&/g')
 
-[ -z "$CRONTAB_FREQUENCY" ] && CRONTAB_FREQUENCY="$DEFAULT_CRONTAB_FREQUENCY"
+[[ -z "${CRONTAB_FREQUENCY}" ]] && CRONTAB_FREQUENCY="$DEFAULT_CRONTAB_FREQUENCY"
 CRONTAB_FREQUENCY_ESCAPED=$(printf '%s\n' "${CRONTAB_FREQUENCY}" | sed 's/[[\.*^$/]/\\&/g')
 
-echo ""
-cat /app/config.json
-echo ""
-echo ""
 
-if [ ! -z "$PRIVATE_REPO_DOMAIN" ]; then
+if [[ ! -z "$PRIVATE_REPO_DOMAIN" ]]; then
   echo ""
   echo -e "$Yellow"
   echo "======================================================================"
@@ -31,42 +30,38 @@ if [ ! -z "$PRIVATE_REPO_DOMAIN" ]; then
   exit 1
 fi
 
-touch /root/.ssh/known_hosts
+touch ${USER_HOME}/.ssh/known_hosts
 
-if [ -f /var/tmp/sshconf ]; then
-    echo " >> Copying host ssh config from /var/tmp/sshconf to /root/.ssh/config"
-    cp /var/tmp/sshconf /root/.ssh/config
+if [[ -f /var/tmp/sshconf ]]; then
+    echo " >> Copying host ssh config from /var/tmp/sshconf to ${USER_HOME}/.ssh/config"
+    cp /var/tmp/sshconf "${USER_HOME}/.ssh/config"
 fi
 
 echo " >> Creating the correct known_hosts file"
-for _DOMAIN in $PRIVATE_REPO_DOMAIN_LIST ; do
+for _DOMAIN in ${PRIVATE_REPO_DOMAIN_LIST} ; do
     IFS=':' read -a arr <<< "${_DOMAIN}"
     if [[ "${#arr[@]}" == "2" ]]; then
         port="${arr[1]}"
-        ssh-keyscan -t rsa,dsa -p "${port}" ${arr[0]} >> /root/.ssh/known_hosts
+        ssh-keyscan -t rsa,dsa -p "${port}" ${arr[0]} >> ${USER_HOME}/.ssh/known_hosts
     else
-        ssh-keyscan -t rsa,dsa $_DOMAIN >> /root/.ssh/known_hosts
+        ssh-keyscan -t rsa,dsa ${_DOMAIN} >> ${USER_HOME}/.ssh/known_hosts
     fi
 done
 
-echo " >> Copying host ssh key from /var/tmp/id to /root/.ssh/id_rsa"
-cp /var/tmp/id /root/.ssh/id_rsa
-chmod 600 /root/.ssh/id_rsa
+echo " >> Copying host ssh key from /var/tmp/id to ${USER_HOME}/.ssh/id_rsa"
+cp /var/tmp/id "${USER_HOME}/.ssh/id_rsa" && chmod 600 "${USER_HOME}/.ssh/id_rsa"
 
-chmod 600 /root/.ssh/id_rsa
+chown -R www-data:www-data /var/www
+chown -R www-data:www-data /satisfy/satis.json && chmod 777 /satisfy/satis.json
 
 echo " >> Building Satis for the first time"
 scripts/build.sh
 
-if [[ $CRONTAB_FREQUENCY == -1 ]]; then
+if [[ ${CRONTAB_FREQUENCY} == -1 ]]; then
   echo " > No Cron"
 else
   echo " > Crontab frequency set to: ${CRONTAB_FREQUENCY}"
   sed -i "s/${DEFAULT_CRONTAB_FREQUENCY_ESCAPED}/${CRONTAB_FREQUENCY_ESCAPED}/g" /etc/cron.d/satis-cron
 fi
-
-# Copy custom config if exists
-[[ -f /app/config.php ]] && cp /app/config.php  /satisfy/app/config.php
-
 
 exit 0

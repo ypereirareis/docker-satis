@@ -2,7 +2,13 @@
 
 ## Latest
 
-This is always an image built based on master branch. (and 4.3 tag for now)
+This is always an image built based on master branch. (and 5.0 tag for now)
+
+## v5.0
+
+* Upgrade satisfy to use (Symfony microkernel)
+* PHP 7.2
+* From ubuntu to Debian stretch
 
 ## v4.3
 

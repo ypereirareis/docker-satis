@@ -1,0 +1,14 @@
+{
+    "name": "Private Repo",
+    "homepage": "https:\/\/satis.domain.tld",
+    "output-dir": "web",
+    "output-html": true,
+    "repositories": [
+    ],
+    "require-all": true,
+    "require-dependencies": true,
+    "require-dev-dependencies": true,
+    "include-filename": "include\/all$%hash%.json",
+    "minimum-stability": "dev",
+    "providers": false
+}

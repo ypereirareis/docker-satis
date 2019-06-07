@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 IMAGE_NAME="ypereirareis/docker-satis"
-VERSION="4.3"
+VERSION="5.0"
 CONTAINER_NAME="satis-test"
 EXIT_CODE=0
 
 function check_errors() {
-  [ "$1" == "0" ] || EXIT_CODE=$?
+  [[ "$1" == "0" ]] || EXIT_CODE=$?
 }
 
 function build() {
@@ -20,7 +20,7 @@ function run() {
   docker run -itd --name "${CONTAINER_NAME}" "${IMAGE_NAME}:${VERSION}"
   check_errors $?
 
-  docker exec -it "${CONTAINER_NAME}" bash -c "cat /app/config.json && ./scripts/build.sh"
+  docker exec -it "${CONTAINER_NAME}" ./scripts/build.sh
   check_errors $?
 
   docker rm -f "${CONTAINER_NAME}"
