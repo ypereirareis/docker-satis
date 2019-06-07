@@ -1,0 +1,12 @@
+parameters:
+  secret: OTg3ZjliNmFhZTcxOWIwZjIzMGJhNTI4N2YwMzllY2ZlYzBlZGY3OTg1YTI3MmU1
+  satis_filename: /satisfy/satis.json
+  satis_log_path: '%kernel.root_dir%/../var/satis'
+  composer.home: '%kernel.project_dir%/var/composer'
+  github.secret: null
+  admin.auth: true
+  admin.users:
+  - name: admin
+    password: foo
+    roles:
+    - ROLE_ADMIN

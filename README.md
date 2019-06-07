@@ -18,18 +18,31 @@ A docker image and configuration to run [Satis](https://github.com/composer/sati
 * docker-compose
 * make
 
+## Install
+
+```bash
+cp .env.dist .env
+cp parameters.satisfy.yml.dist parameters.satisfy.yml
+cp satis.yml.dist satis.yml
+make start
+```
+
 ## The default config file for satis looks like this:
 
 ```json
 {
-    "name": "My Private Repo",
-    "homepage": "https://satis.domain.tld",
+    "name": "Private REPO",
+    "homepage": "https:\/\/satis.domain.tld",
+    "output-dir": "web",
+    "output-html": true,
     "repositories": [
     ],
-    "require-all":true,
-    "require-dependencies":true,
-    "require-dev-dependencies":true,
-    "minimum-stability":"dev"
+    "require-all": true,
+    "require-dependencies": true,
+    "require-dev-dependencies": true,
+    "include-filename": "include\/all$%hash%.json",
+    "minimum-stability": "dev",
+    "providers": false
 }
 
 ```
@@ -63,28 +76,27 @@ make state
 ## Satis/Satisfy access
 
 * Home page
-[http://127.0.0.1](http://127.0.0.1)
+[http://satis.localhost](http://satis.localhost)
 
 * Manual build / Web hook
-[http://127.0.0.1:3333/build](http://127.0.0.1:3333/build)
+[http://satis.localhost/admin/satis/build](http://satis.localhost/admin/satis/build)
 
 * Admin
-[http://127.0.0.1/admin](http://127.0.0.1/admin)
+[http://satis.localhost/admin](http://satis.localhost/admin)
 
-Default credentials are : **admin / foo** as you can see in [this config file](./config.php#L43-55).
-You will also find instructions to change or add credentials in this section of the file.
+Default credentials are : **admin / foo** 
 
 ## Configuration override (if needed)
 
-* Add your own custom `config.json` (aka satis.json)
-* Add your own custom `config.php` for Satisfy
+* Add your own custom `satis.json`
+* Add your own custom `parameters.satisfy.yml` for Satisfy
 
 ```
 satis:
     image: ypereirareis/docker-satis:4.3
     volumes:
-        - ./config.php:/app/config.php
-        - ./config.json:/app/config.json
+        - "./parameters.satisfy.yml:/satisfy/app/config/parameters.yml"
+        - "./satis.json:/satisfy/satis.json"
 ```
 
 But I advise you to create your own image and Dockerfile:
@@ -92,8 +104,8 @@ But I advise you to create your own image and Dockerfile:
 ```shell
 FROM ypereirareis/docker-satis:4.3
 ...
-ADD config.php /app/config.php
-ADD config.json /app/config.json
+ADD satis.json /satisfy/satis.json
+ADD parameters.satisfy.yml /satisfy/app/config/parameters.yml
 ```
 
 ## **Build frequency**
@@ -153,19 +165,6 @@ satis:
         - "/var/tmp/composer:/root/.composer"
 ```
 
-
-## Ports
-
-If you want to build on port 8888 and access the interface on port 5000 :
-
-```
-satis:
-    image: ypereirareis/docker-satis:4.3
-    ports:
-        - 8888:3000
-        - 5000:80
-
-```
 
 ## Outside world
 

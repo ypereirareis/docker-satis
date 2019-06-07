@@ -25,8 +25,7 @@ server {
     # Consider using: "location ~ ^/(index|app|app_dev|config)\.php(/|$) {"
     location ~ \.php$ {
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        # With php5-fpm:
-        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_pass unix:/run/php/php7.2-fpm.sock;
         fastcgi_index index.php;
         include fastcgi_params;
         include fastcgi.conf;

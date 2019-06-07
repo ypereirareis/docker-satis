@@ -43,4 +43,4 @@ bash:
 
 satis-build:
 	@echo "== SATIS BUILD =="
-	@$(compose) run --rm satis bash -c "cat /app/config.json && ./scripts/build.sh"
+	@$(compose) exec satis ./scripts/build.sh

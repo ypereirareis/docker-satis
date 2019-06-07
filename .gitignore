@@ -1,1 +1,4 @@
 .idea/
+.env
+parameters.satisfy.yml
+satis.json
