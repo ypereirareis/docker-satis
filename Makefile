@@ -1,26 +1,22 @@
-.PHONY: build build-no-cache up start stop restart state remove bash satis-build
+.PHONY: build up start stop restart state remove bash satis-build down logs
 
-###############
-## VARIABLES ##
-###############
+###############################################
+##     VARIABLES                             ##
+###############################################
 compose=docker-compose
-version=5.0
 image=ypereirareis/docker-satis
 
-#############
-## Targets ##
-#############
-build:
-	docker-compose build --pull
-
-build-no-cache:
-	docker build -t $(image):$(version) --no-cache .
-
+###############################################
+##      TARGETS                              ##
+###############################################
 up:
 	@echo "== START =="
 	$(compose) up -d satis
 
 start: up
+
+build:
+	@$(compose) build --pull
 
 stop:
 	@echo "== STOP =="
@@ -32,16 +28,19 @@ state:
 	@echo "== STATE =="
 	@$(compose) ps
 
-remove: stop
+remove:
 	@echo "== REMOVE =="
 	@$(compose) rm --force
 
 bash:
 	@echo "== BASH =="
-	@$(compose) run --rm satis bash
+	@$(compose) exec satis bash
 
 logs:
-	@$(compose) logs -ft
+	@$(compose) logs -ft --tail=1000
+
+down:
+	@$(compose) down --volumes --remove-orphans
 
 satis-build:
 	@echo "== SATIS BUILD =="

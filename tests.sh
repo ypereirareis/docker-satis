@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 IMAGE_NAME="ypereirareis/docker-satis"
-VERSION="5.0"
+VERSION="5.1"
 CONTAINER_NAME="satis-test"
 EXIT_CODE=0
 
