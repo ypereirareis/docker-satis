@@ -21,6 +21,7 @@ RUN apt-get update \
         supervisor \
         nginx \
         ssh \
+        unzip \
         libmcrypt-dev \
     && wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg \
         && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" >> /etc/apt/sources.list.d/php.list \
@@ -52,17 +53,17 @@ ADD nginx/default   /etc/nginx/sites-available/default
 ENV USER_HOME /var/www
 RUN mkdir -p $USER_HOME/.ssh/ && touch $USER_HOME/.ssh/known_hosts
 
-# Install Composer
-# Install Satis and Satisfy
+# Install Composer, satis and satisfy
 ENV COMPOSER_HOME /tmp/.composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-    && composer --version \
-    && composer global require hirak/prestissimo \
-	&& composer create-project playbloom/satisfy satisfy 3.1 \
-	&& chmod -R 777 /satisfy \
-	&& rm -rf /satisfy/vendor/composer/satis \
-    && cd /satisfy && composer update -o "composer/satis" \
-	&& rm -rf /root/.composer/cache/*
+COPY --from=composer:1.8.6 /usr/bin/composer /usr/bin/composer
+RUN composer global require hirak/prestissimo
+ADD https://github.com/ludofleury/satisfy/archive/3.1.zip /
+RUN unzip 3.1.zip \
+    && mv /satisfy-3.1 /satisfy \
+    && rm -rf 3.1.zip \
+    && cd /satisfy \
+    && composer install \
+    && chmod -R 777 /satisfy
 
 ADD scripts /app/scripts
 
@@ -72,7 +73,7 @@ ADD parameters.satisfy.yml /satisfy/app/config/parameters.yml
 
 RUN chmod 0644 /etc/cron.d/satis-cron \
 	&& touch /var/log/satis-cron.log \
-	&& chmod 777 /satisfy/satis.json \
+    && chmod 777 /satisfy/satis.json \
 	&& chmod +x /app/scripts/startup.sh
 
 ADD supervisor/0-install.conf /etc/supervisor/conf.d/0-install.conf

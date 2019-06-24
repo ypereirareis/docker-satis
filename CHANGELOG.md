@@ -2,7 +2,13 @@
 
 ## Latest
 
-This is always an image built based on master branch. (and 5.0 tag for now)
+This is always an image built based on master branch. (and 5.1 tag for now)
+
+## v5.1
+
+* ADD Unzip
+* Composer FROM docker image
+* make down to remove the stack
 
 ## v5.0
 
