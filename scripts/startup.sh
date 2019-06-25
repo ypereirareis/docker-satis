@@ -30,6 +30,10 @@ if [[ ! -z "$PRIVATE_REPO_DOMAIN" ]]; then
   exit 1
 fi
 
+test -e /satisfy/config/parameters.satisfy.yml && rm -rf /satisfy/app/config/parameters.yml && ln -s /satisfy/config/parameters.satisfy.yml /satisfy/app/config/parameters.yml
+test -e /satisfy/config/satis.json && rm -rf /satisfy/satis.json && ln -s /satisfy/config/satis.json /satisfy/satis.json
+
+
 touch ${USER_HOME}/.ssh/known_hosts
 
 if [[ -f /var/tmp/sshconf ]]; then

@@ -57,23 +57,22 @@ RUN mkdir -p $USER_HOME/.ssh/ && touch $USER_HOME/.ssh/known_hosts
 ENV COMPOSER_HOME /tmp/.composer
 COPY --from=composer:1.8.6 /usr/bin/composer /usr/bin/composer
 RUN composer global require hirak/prestissimo
-ADD https://github.com/ludofleury/satisfy/archive/3.1.zip /
-RUN unzip 3.1.zip \
-    && mv /satisfy-3.1 /satisfy \
-    && rm -rf 3.1.zip \
-    && cd /satisfy \
+#ADD https://github.com/ludofleury/satisfy/archive/3.1.zip /
+#RUN unzip 3.1.zip \
+#    && mv /satisfy-3.1 /satisfy \
+#    && rm -rf 3.1.zip
+RUN composer create-project playbloom/satisfy:dev-master
+RUN cd /satisfy \
     && composer install \
     && chmod -R 777 /satisfy
 
 ADD scripts /app/scripts
 
 ADD scripts/crontab /etc/cron.d/satis-cron
-ADD satis.json /satisfy/satis.json
-ADD parameters.satisfy.yml /satisfy/app/config/parameters.yml
+ADD config/ /satisfy/config
 
 RUN chmod 0644 /etc/cron.d/satis-cron \
 	&& touch /var/log/satis-cron.log \
-    && chmod 777 /satisfy/satis.json \
 	&& chmod +x /app/scripts/startup.sh
 
 ADD supervisor/0-install.conf /etc/supervisor/conf.d/0-install.conf

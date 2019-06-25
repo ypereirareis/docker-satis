@@ -4,6 +4,7 @@ parameters:
   satis_log_path: '%kernel.root_dir%/../var/satis'
   composer.home: '%kernel.project_dir%/var/composer'
   github.secret: null
+  gitlab.secret: aaabbbccc
   admin.auth: true
   admin.users:
   - name: admin

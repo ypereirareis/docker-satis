@@ -22,8 +22,8 @@ A docker image and configuration to run [Satis](https://github.com/composer/sati
 
 ```bash
 cp .env.dist .env
-cp parameters.satisfy.yml.dist parameters.satisfy.yml
-cp satis.json.dist satis.json
+cp config/parameters.satisfy.yml.dist config/parameters.satisfy.yml
+cp config/satis.json.dist config/satis.json
 make start
 ```
 
@@ -31,7 +31,7 @@ make start
 
 ```json
 {
-    "name": "Private REPO",
+    "name": "company/private-packagist",
     "homepage": "https:\/\/satis.domain.tld",
     "output-dir": "web",
     "output-html": true,
@@ -86,35 +86,13 @@ make state
 
 Default credentials are : **admin / foo** 
 
-## Configuration override (if needed)
-
-* Add your own custom `satis.json`
-* Add your own custom `parameters.satisfy.yml` for Satisfy
-
-```
-satis:
-    image: ypereirareis/docker-satis:5.1
-    volumes:
-        - "./parameters.satisfy.yml:/satisfy/app/config/parameters.yml"
-        - "./satis.json:/satisfy/satis.json"
-```
-
-But I advise you to create your own image and Dockerfile:
-
-```shell
-FROM ypereirareis/docker-satis:5.1
-...
-ADD satis.json /satisfy/satis.json
-ADD parameters.satisfy.yml /satisfy/app/config/parameters.yml
-```
-
 ## **Build frequency**
 
 * By default, building script is executed every minute thanks to the docker-compose configuration
 
 ```
 satis:
-    image: ypereirareis/docker-satis:5.1
+    image: ypereirareis/docker-satis:5.2
     environment:
         CRONTAB_FREQUENCY: "*/1 * * * *"
 ```
@@ -128,7 +106,7 @@ satis:
 
 ```
 satis:
-    image: ypereirareis/docker-satis:5.1
+    image: ypereirareis/docker-satis:5.2
     volumes:
         - "~/.ssh/id_rsa:/var/tmp/id"
         - "~/.ssh/config:/var/tmp/sshconf"
@@ -137,7 +115,7 @@ satis:
 You could add the key into your own image but be careful your ssh key will be in the image (DO NOT SHARE THE IMAGE TO THE WORLD):
 
 ```shell
-FROM ypereirareis/docker-satis:5.1
+FROM ypereirareis/docker-satis:5.2
 ...
 ADD SSH_PATH/.ssh/id_rsa:/var/tmp/id
 ADD SSH_PATH/.ssh/config:/var/tmp/sshconf
@@ -149,7 +127,7 @@ ADD SSH_PATH/.ssh/config:/var/tmp/sshconf
 
 ```
 satis:
-    image: ypereirareis/docker-satis:5.1
+    image: ypereirareis/docker-satis:5.2
     environment:
         PRIVATE_REPO_DOMAIN_LIST: bitbucket.org gitlab.com github.com yourownserver.com:54322
 ```
@@ -160,7 +138,7 @@ Cache should be shared with the host to be reused when you restart the container
 
 ```
 satis:
-    image: ypereirareis/docker-satis:5.1
+    image: ypereirareis/docker-satis:5.2
     volumes:
         - "/var/tmp/composer:/root/.composer"
 ```
