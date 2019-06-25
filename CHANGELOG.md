@@ -2,7 +2,12 @@
 
 ## Latest
 
-This is always an image built based on master branch. (and 5.1 tag for now)
+This is always an image built based on master branch. (and 5.2 tag for now)
+
+## v5.2
+
+* USE satisfy:dev-master waiting for a new release and tag
+* Mount config directory instead of single files (updates NOT reflected into containers)
 
 ## v5.1
 

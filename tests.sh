@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 IMAGE_NAME="ypereirareis/docker-satis"
-VERSION="5.1"
+VERSION="5.2"
 CONTAINER_NAME="satis-test"
 EXIT_CODE=0
 
@@ -19,6 +19,8 @@ function run() {
 
   docker run -itd --name "${CONTAINER_NAME}" "${IMAGE_NAME}:${VERSION}"
   check_errors $?
+
+  sleep 5 # Here to wait for entrypoint execution
 
   docker exec -it "${CONTAINER_NAME}" ./scripts/build.sh
   check_errors $?

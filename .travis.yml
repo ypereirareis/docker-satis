@@ -6,6 +6,6 @@ services:
   - docker
 
 script:
-  - cp satis.json.dist satis.json
-  - cp parameters.satisfy.yml.dist parameters.satisfy.yml
+  - cp config/satis.json.dist config/satis.json
+  - cp config/parameters.satisfy.yml.dist config/parameters.satisfy.yml
   - bash tests.sh
