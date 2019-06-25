@@ -20,6 +20,8 @@ function run() {
   docker run -itd --name "${CONTAINER_NAME}" "${IMAGE_NAME}:${VERSION}"
   check_errors $?
 
+  sleep 5 # Here to wait for entrypoint execution
+
   docker exec -it "${CONTAINER_NAME}" ./scripts/build.sh
   check_errors $?
 
