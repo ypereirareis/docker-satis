@@ -2,7 +2,11 @@
 
 ## Latest
 
-This is always an image built based on master branch. (and 5.2 tag for now)
+This is always an image built based on master branch. (and 5.3 tag for now)
+
+## v5.3
+
+* Build for latest master branch of satisfy
 
 ## v5.2
 
