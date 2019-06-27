@@ -1,7 +1,7 @@
 version: "3.2"
 services:
   satis:
-    image: ypereirareis/docker-satis:${IMAGE_VERSION:-5.2}
+    image: ypereirareis/docker-satis:${IMAGE_VERSION:-5.3}
     build: ./
     container_name: satis
     hostname: satis
