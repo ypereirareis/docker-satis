@@ -92,7 +92,7 @@ Default credentials are : **admin / foo**
 
 ```
 satis:
-    image: ypereirareis/docker-satis:5.2
+    image: ypereirareis/docker-satis:5.3
     environment:
         CRONTAB_FREQUENCY: "*/1 * * * *"
 ```
@@ -106,7 +106,7 @@ satis:
 
 ```
 satis:
-    image: ypereirareis/docker-satis:5.2
+    image: ypereirareis/docker-satis:5.3
     volumes:
         - "~/.ssh/id_rsa:/var/tmp/id"
         - "~/.ssh/config:/var/tmp/sshconf"
@@ -115,7 +115,7 @@ satis:
 You could add the key into your own image but be careful your ssh key will be in the image (DO NOT SHARE THE IMAGE TO THE WORLD):
 
 ```shell
-FROM ypereirareis/docker-satis:5.2
+FROM ypereirareis/docker-satis:5.3
 ...
 ADD SSH_PATH/.ssh/id_rsa:/var/tmp/id
 ADD SSH_PATH/.ssh/config:/var/tmp/sshconf
@@ -127,7 +127,7 @@ ADD SSH_PATH/.ssh/config:/var/tmp/sshconf
 
 ```
 satis:
-    image: ypereirareis/docker-satis:5.2
+    image: ypereirareis/docker-satis:5.3
     environment:
         PRIVATE_REPO_DOMAIN_LIST: bitbucket.org gitlab.com github.com yourownserver.com:54322
 ```
@@ -138,7 +138,7 @@ Cache should be shared with the host to be reused when you restart the container
 
 ```
 satis:
-    image: ypereirareis/docker-satis:5.2
+    image: ypereirareis/docker-satis:5.3
     volumes:
         - "/var/tmp/composer:/root/.composer"
 ```

@@ -57,11 +57,28 @@ RUN mkdir -p $USER_HOME/.ssh/ && touch $USER_HOME/.ssh/known_hosts
 ENV COMPOSER_HOME /tmp/.composer
 COPY --from=composer:1.8.6 /usr/bin/composer /usr/bin/composer
 RUN composer global require hirak/prestissimo
+
+#############################################################################################"
+##
+## Install from dist
+##
 #ADD https://github.com/ludofleury/satisfy/archive/3.1.zip /
 #RUN unzip 3.1.zip \
 #    && mv /satisfy-3.1 /satisfy \
 #    && rm -rf 3.1.zip
-RUN composer create-project playbloom/satisfy:dev-master
+
+##
+##
+## Install from composer/packagist
+#RUN composer create-project playbloom/satisfy:dev-master
+
+##
+## Install from git clone
+##
+RUN git clone https://github.com/ludofleury/satisfy.git
+#############################################################################################"
+
+
 RUN cd /satisfy \
     && composer install \
     && chmod -R 777 /satisfy

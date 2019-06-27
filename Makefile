@@ -18,6 +18,9 @@ start: up
 build:
 	@$(compose) build --pull
 
+rebuild:
+	@$(compose) build --pull --no-cache
+
 stop:
 	@echo "== STOP =="
 	@$(compose) stop
