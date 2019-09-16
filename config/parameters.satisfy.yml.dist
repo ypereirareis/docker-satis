@@ -5,6 +5,8 @@ parameters:
   composer.home: '%kernel.project_dir%/var/composer'
   github.secret: null
   gitlab.secret: aaabbbccc
+  gitlab.auto_add_repo: false
+  gitlab.auto_add_repo_type: ~
   admin.auth: true
   admin.users:
   - name: admin
