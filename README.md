@@ -14,7 +14,7 @@ A docker image and configuration to run [Satis](https://github.com/composer/sati
 * docker-compose
 * make
 
-## Install
+## Install
 
 ```bash
 cp .env.dist .env
@@ -86,7 +86,7 @@ Default credentials are : **admin / foo**
 
 * By default, building script is executed every minute thanks to the docker-compose configuration
 
-```
+```yml
 satis:
     image: ypereirareis/docker-satis:5.4
     environment:
@@ -100,7 +100,7 @@ satis:
 
 * The container needs to know the ssh key you added in your private repo (and optionally your SSH configuration).
 
-```
+```yml
 satis:
     image: ypereirareis/docker-satis:5.4
     volumes:
@@ -110,7 +110,7 @@ satis:
 
 You could add the key into your own image but be careful your ssh key will be in the image (DO NOT SHARE THE IMAGE TO THE WORLD):
 
-```shell
+```Dockerfile
 FROM ypereirareis/docker-satis:5.4
 ...
 ADD SSH_PATH/.ssh/id_rsa:/var/tmp/id
@@ -121,7 +121,7 @@ ADD SSH_PATH/.ssh/config:/var/tmp/sshconf
 
 **You can now add the ssh port of your server `yourownserver.com:54322` and it supports rsa and dsa keys**
 
-```
+```yml
 satis:
     image: ypereirareis/docker-satis:5.4
     environment:
@@ -132,7 +132,7 @@ satis:
 
 Cache should be shared with the host to be reused when you restart the container, for better performance.
 
-```
+```yml
 satis:
     image: ypereirareis/docker-satis:5.4
     volumes:
