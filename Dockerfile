@@ -27,25 +27,25 @@ RUN apt-get update \
         && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" >> /etc/apt/sources.list.d/php.list \
         && apt-get update \
         && apt-get install -y --no-install-recommends \
-        php7.2 \
-        php7.2-tidy \
-        php7.2-cli \
-        php7.2-common \
-        php7.2-curl \
-        php7.2-intl \
-        php7.2-fpm \
-        php7.2-zip \
-        php7.2-apcu \
-        php7.2-xml \
-        php7.2-mbstring \
+        php7.3 \
+        php7.3-tidy \
+        php7.3-cli \
+        php7.3-common \
+        php7.3-curl \
+        php7.3-intl \
+        php7.3-fpm \
+        php7.3-zip \
+        php7.3-apcu \
+        php7.3-xml \
+        php7.3-mbstring \
 	&& apt-get clean \
     && rm -Rf /var/lib/apt/lists/* /usr/share/man/* /usr/share/doc/* /tmp/* /var/tmp/*
 
-RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php/7.2/cli/php.ini \
-	&& sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php/7.2/fpm/php.ini \
+RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php/7.3/cli/php.ini \
+	&& sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php/7.3/fpm/php.ini \
 	&& echo "daemon off;" >> /etc/nginx/nginx.conf \
-	&& sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.2/fpm/php-fpm.conf \
-	&& sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.2/fpm/php.ini
+	&& sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.3/fpm/php-fpm.conf \
+	&& sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.3/fpm/php.ini
 
 ADD nginx/default   /etc/nginx/sites-available/default
 
