@@ -10,7 +10,7 @@ function check_errors() {
 }
 
 function build() {
-  docker build -t "${IMAGE_NAME}:${VERSION}" .
+  docker build --build-arg BUILD_FROM=mirror.gcr.io/library/debian:buster-slim -t "${IMAGE_NAME}:${VERSION}" .
   check_errors $?
 }
 

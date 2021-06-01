@@ -1,4 +1,5 @@
-FROM mirror.gcr.io/library/debian:buster-slim
+ARG BUILD_FROM=debian:buster-slim
+FROM $BUILD_FROM
 
 MAINTAINER Yannick Pereira-Reis <yannick.pereira.reis@gmail.com>
 
