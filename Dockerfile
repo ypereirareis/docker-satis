@@ -55,9 +55,11 @@ ADD nginx/default   /etc/nginx/sites-available/default
 ENV USER_HOME /var/www
 RUN mkdir -p $USER_HOME/.ssh/ && touch $USER_HOME/.ssh/known_hosts
 
+
+ADD scripts /app/scripts
 # Install Composer, satis and satisfy
 ENV COMPOSER_HOME /var/www/.composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+RUN chmod +x /app/scripts/composer_install.sh && /app/scripts/composer_install.sh && mv composer.phar /usr/local/bin/composer
 
 #############################################################################################"
 ##
@@ -83,8 +85,6 @@ RUN unzip 3.3.0.zip \
 RUN cd /satisfy \
     && composer install \
     && chmod -R 777 /satisfy
-
-ADD scripts /app/scripts
 
 ADD scripts/crontab /etc/cron.d/satis-cron
 ADD config/ /satisfy/config_tmp

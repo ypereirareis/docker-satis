@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-IMAGE_NAME="ypereirareis/docker-satis"
+IMAGE_NAME="local/docker-satis"
 VERSION="3.3.0-debian-buster-php74"
 CONTAINER_NAME="satis-test"
 EXIT_CODE=0
