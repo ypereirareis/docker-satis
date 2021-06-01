@@ -8,6 +8,11 @@
 
 A docker image and configuration to run [Satis](https://github.com/composer/satis) very easily in seconds
 
+* Satisfy 3.3.0
+* PHP 7.4
+* Composer 2+
+* Debian buster
+
 ## Requirements
 
 * docker
@@ -88,7 +93,7 @@ Default credentials are : **admin / foo**
 
 ```yml
 satis:
-    image: ypereirareis/docker-satis:5.4
+    image: ypereirareis/docker-satis:3.3.0-debian-buster-php74
     environment:
         CRONTAB_FREQUENCY: "*/1 * * * *"
 ```
@@ -102,7 +107,7 @@ satis:
 
 ```yml
 satis:
-    image: ypereirareis/docker-satis:5.4
+    image: ypereirareis/docker-satis:3.3.0-debian-buster-php74
     volumes:
         - "~/.ssh/id_rsa:/var/tmp/id"
         - "~/.ssh/config:/var/tmp/sshconf"
@@ -111,7 +116,7 @@ satis:
 You could add the key into your own image but be careful your ssh key will be in the image (DO NOT SHARE THE IMAGE TO THE WORLD):
 
 ```Dockerfile
-FROM ypereirareis/docker-satis:5.4
+FROM ypereirareis/docker-satis:3.3.0-debian-buster-php74
 ...
 ADD SSH_PATH/.ssh/id_rsa:/var/tmp/id
 ADD SSH_PATH/.ssh/config:/var/tmp/sshconf
@@ -123,7 +128,7 @@ ADD SSH_PATH/.ssh/config:/var/tmp/sshconf
 
 ```yml
 satis:
-    image: ypereirareis/docker-satis:5.4
+    image: ypereirareis/docker-satis:3.3.0-debian-buster-php74
     environment:
         PRIVATE_REPO_DOMAIN_LIST: bitbucket.org gitlab.com github.com yourownserver.com:54322
 ```
@@ -134,7 +139,7 @@ Cache should be shared with the host to be reused when you restart the container
 
 ```yml
 satis:
-    image: ypereirareis/docker-satis:5.4
+    image: ypereirareis/docker-satis:3.3.0-debian-buster-php74
     volumes:
         - "/var/tmp/composer:/root/.composer"
 ```

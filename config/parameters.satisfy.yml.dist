@@ -2,11 +2,14 @@ parameters:
   secret: OTg3ZjliNmFhZTcxOWIwZjIzMGJhNTI4N2YwMzllY2ZlYzBlZGY3OTg1YTI3MmU1
   satis_filename: /satisfy/satis.json
   satis_log_path: '%kernel.root_dir%/../var/satis'
-  composer.home: '%kernel.project_dir%/var/composer'
+  composer.home: '/var/www/.composer'
   github.secret: null
   gitlab.secret: aaabbbccc
-  gitlab.auto_add_repo: false
-  gitlab.auto_add_repo_type: ~
+  gitlab.auto_add_repo: true
+  gitlab.auto_add_repo_type: git
+  gitlab.prefer_ssh_url_type: true
+  gitea.secret: ~
+  devops.secret: ~
   admin.auth: true
   admin.users:
   - name: admin

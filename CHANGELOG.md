@@ -2,7 +2,16 @@
 
 ## Latest
 
-This is always an image built based on master branch. (and 5.4 tag for now)
+This is always an image built based on master branch. (and 3.3.0-debian-buster-php74 tag for now)
+
+## v3.3.0-debian-buster-php74
+
+* UPDATE to satisfy v3.3.0
+* UPDATE to PHP 7.4 (PHP 7.4.18 built: May  3 2021 11:59:44)
+* UPDATE to Composer 2 (version 2.0.14 2021-05-21 17:03:37)
+* UPDATE to Debian Buster
+* UPDATE to nginx/1.14.2 (nginx/now 1.14.2-2+deb10u4 at time of image build)
+* FIX php7.4 management with supervisord
 
 ## v5.4
 

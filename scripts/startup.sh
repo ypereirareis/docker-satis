@@ -30,8 +30,8 @@ if [[ ! -z "$PRIVATE_REPO_DOMAIN" ]]; then
   exit 1
 fi
 
-test -e /satisfy/config/parameters.satisfy.yml && rm -rf /satisfy/app/config/parameters.yml && ln -s /satisfy/config/parameters.satisfy.yml /satisfy/app/config/parameters.yml
-test -e /satisfy/config/satis.json && rm -rf /satisfy/satis.json && ln -s /satisfy/config/satis.json /satisfy/satis.json
+test -e /satisfy/config_tmp/parameters.satisfy.yml && rm -rf /satisfy/config/parameters.yml && ln -s /satisfy/config_tmp/parameters.satisfy.yml /satisfy/config/parameters.yml
+test -e /satisfy/config_tmp/satis.json && rm -rf /satisfy/satis.json && ln -s /satisfy/config_tmp/satis.json /satisfy/satis.json
 
 
 touch ${USER_HOME}/.ssh/known_hosts

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-IMAGE_NAME="ypereirareis/docker-satis"
-VERSION="5.4"
+IMAGE_NAME="local/docker-satis"
+VERSION="3.3.0-debian-buster-php74"
 CONTAINER_NAME="satis-test"
 EXIT_CODE=0
 
@@ -10,7 +10,7 @@ function check_errors() {
 }
 
 function build() {
-  docker build -t "${IMAGE_NAME}:${VERSION}" .
+  docker build --build-arg BUILD_FROM=mirror.gcr.io/library/debian:buster-slim -t "${IMAGE_NAME}:${VERSION}" .
   check_errors $?
 }
 
