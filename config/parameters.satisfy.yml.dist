@@ -1,5 +1,5 @@
 parameters:
-  secret: OTg3ZjliNmFhZTcxOWIwZjIzMGJhNTI4N2YwMzllY2ZlYzBlZGY3OTg1YTI3MmU1
+  secret: LDC9BCiVoiBHPV6fwwCj2zC2GhuJW9mo
   satis_filename: /satisfy/satis.json
   satis_log_path: '%kernel.root_dir%/../var/satis'
   composer.home: '/var/www/.composer'

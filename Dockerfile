@@ -56,11 +56,12 @@ ADD nginx/default   /etc/nginx/sites-available/default
 ENV USER_HOME /var/www
 RUN mkdir -p $USER_HOME/.ssh/ && touch $USER_HOME/.ssh/known_hosts
 
-
 ADD scripts /app/scripts
 # Install Composer, satis and satisfy
 ENV COMPOSER_HOME /var/www/.composer
-RUN chmod +x /app/scripts/composer_install.sh && /app/scripts/composer_install.sh && mv composer.phar /usr/local/bin/composer
+RUN chmod +x /app/scripts/composer_install.sh \
+    && /app/scripts/composer_install.sh \
+    && composer global require hirak/prestissimo
 
 #############################################################################################"
 ##
@@ -84,7 +85,7 @@ RUN unzip 3.3.0.zip \
 
 
 RUN cd /satisfy \
-    && composer install \
+    && composer install --no-dev -n --optimize-autoloader \
     && chmod -R 777 /satisfy
 
 ADD scripts/crontab /etc/cron.d/satis-cron
