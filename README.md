@@ -10,7 +10,6 @@ A docker image and configuration to run [Satis](https://github.com/composer/sati
 
 * Satisfy 3.3.0
 * PHP 7.4
-* Composer 2+
 * Debian buster
 
 ## Requirements
