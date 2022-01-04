@@ -1,4 +1,4 @@
-ARG BUILD_FROM=debian:buster-slim
+ARG BUILD_FROM=debian:bullseye-slim
 FROM $BUILD_FROM
 
 MAINTAINER Yannick Pereira-Reis <yannick.pereira.reis@gmail.com>
@@ -28,27 +28,27 @@ RUN apt-get update \
         && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" >> /etc/apt/sources.list.d/php.list \
         && apt-get update \
         && apt-get install -y --no-install-recommends \
-        php7.4 \
-        php7.4-tidy \
-        php7.4-cli \
-        php7.4-common \
-        php7.4-curl \
-        php7.4-intl \
-        php7.4-fpm \
-        php7.4-zip \
-        php7.4-apcu \
-        php7.4-xml \
-        php7.4-mbstring \
+        php8.1 \
+        php8.1-tidy \
+        php8.1-cli \
+        php8.1-common \
+        php8.1-curl \
+        php8.1-intl \
+        php8.1-fpm \
+        php8.1-zip \
+        php8.1-apcu \
+        php8.1-xml \
+        php8.1-mbstring \
 	&& apt-get clean \
     && rm -Rf /var/lib/apt/lists/* /usr/share/man/* /usr/share/doc/* /tmp/* /var/tmp/*
 
-RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php/7.4/cli/php.ini \
-	&& sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php/7.4/fpm/php.ini \
+RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php/8.1/cli/php.ini \
+	&& sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php/8.1/fpm/php.ini \
 	&& echo "daemon off;" >> /etc/nginx/nginx.conf \
-	&& sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.4/fpm/php-fpm.conf \
-	&& sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.4/fpm/php.ini \
-	&& sed -i "s/;decorate_workers_output/decorate_workers_output/" /etc/php/7.4/fpm/pool.d/www.conf \
-	&& sed -i "s/;clear_env/clear_env/" /etc/php/7.4/fpm/pool.d/www.conf
+	&& sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/8.1/fpm/php-fpm.conf \
+	&& sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/8.1/fpm/php.ini \
+	&& sed -i "s/;decorate_workers_output/decorate_workers_output/" /etc/php/8.1/fpm/pool.d/www.conf \
+	&& sed -i "s/;clear_env/clear_env/" /etc/php/8.1/fpm/pool.d/www.conf
 
 ADD nginx/default   /etc/nginx/sites-available/default
 
@@ -60,17 +60,16 @@ ADD scripts /app/scripts
 # Install Composer, satis and satisfy
 ENV COMPOSER_HOME /var/www/.composer
 RUN chmod +x /app/scripts/composer_install.sh \
-    && /app/scripts/composer_install.sh \
-    && composer global require hirak/prestissimo
+    && /app/scripts/composer_install.sh
 
 #############################################################################################"
 ##
 ## Install from dist
 ##
-ADD https://github.com/ludofleury/satisfy/archive/3.3.0.zip /
-RUN unzip 3.3.0.zip \
-    && mv /satisfy-3.3.0 /satisfy \
-    && rm -rf 3.3.0.zip
+ADD https://github.com/ludofleury/satisfy/archive/3.4.0.zip /
+RUN unzip 3.4.0.zip \
+    && mv /satisfy-3.4.0 /satisfy \
+    && rm -rf 3.4.0.zip
 
 ##
 ##
@@ -102,7 +101,7 @@ ADD supervisor/3-php.conf /etc/supervisor/conf.d/3-php.conf
 
 ENV APP_ENV prod
 ENV APP_DEBUG 0
-RUN mkdir -p /run/php && touch /run/php/php7.4-fpm.sock && touch /run/php/php7.4-fpm.pid
+RUN mkdir -p /run/php && touch /run/php/php8.1-fpm.sock && touch /run/php/php8.1-fpm.pid
 
 WORKDIR /app
 
