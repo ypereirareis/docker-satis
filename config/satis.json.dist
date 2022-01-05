@@ -1,14 +1,16 @@
 {
-    "name": "company/private-repository",
+    "name": "company\/private-repository",
+    "description": "",
     "homepage": "https:\/\/satis.domain.tld",
     "output-dir": "web",
     "output-html": true,
-    "repositories": [
-    ],
     "require-all": true,
     "require-dependencies": false,
     "require-dev-dependencies": false,
+    "require-dependency-filter": true,
     "include-filename": "include\/all$%hash%.json",
+    "repositories": [],
     "minimum-stability": "dev",
-    "providers": false
+    "providers": false,
+    "pretty-print": true
 }

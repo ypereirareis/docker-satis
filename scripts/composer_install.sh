@@ -1,7 +1,7 @@
 #!/bin/sh
 
-EXPECTED_CHECKSUM=$(curl -s https://getcomposer.org/download/latest-1.x/composer.phar.sha256sum)
-wget https://getcomposer.org/download/latest-1.x/composer.phar
+EXPECTED_CHECKSUM=$(curl -s https://getcomposer.org/download/latest-2.x/composer.phar.sha256sum)
+wget https://getcomposer.org/download/latest-2.x/composer.phar
 ACTUAL_CHECKSUM="$(sha256sum composer.phar)"
 
 if [ "$EXPECTED_CHECKSUM" != "$ACTUAL_CHECKSUM" ]

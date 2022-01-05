@@ -2,7 +2,15 @@
 
 ## Latest
 
-This is always an image built based on master branch. (and 3.3.0-debian-buster-php74 tag for now)
+This is always an image built based on master branch. (and 3.4.0-debian-bullseye-php81-composer2 tag for now)
+
+## 3.4.0-debian-bullseye-php81-composer2
+
+* UPDATE to satisfy v3.4.0
+* UPDATE to PHP 8.1 - `PHP 8.1.1 (cli) (built: Dec 20 2021 21:35:13) (NTS)`
+* UPDATE to Debian 11 Bullseye
+* UPDATE to nginx/1.18.0 - `built with OpenSSL 1.1.1k  25 Mar 2021`
+* UPDATE to composer 2 - `Composer version 2.2.3 2021-12-31 12:18:53`
 
 ## v3.3.0-debian-buster-php74
 
