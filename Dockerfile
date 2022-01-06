@@ -85,6 +85,7 @@ RUN unzip 3.4.0.zip \
 
 RUN cd /satisfy \
     && composer install --no-dev -n --optimize-autoloader \
+    && composer update composer/composer composer/satis \
     && chmod -R 777 /satisfy
 
 ADD scripts/crontab /etc/cron.d/satis-cron
