@@ -11,7 +11,7 @@ function check_errors() {
 }
 
 function build() {
-  docker build --build-arg BUILD_FROM=mirror.gcr.io/library/debian:bullseye -t "${IMAGE_NAME}:${VERSION}" .
+  docker build --build-arg BUILD_FROM=debian:bullseye-slim -t "${IMAGE_NAME}:${VERSION}" .
   check_errors $?
 }
 
