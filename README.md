@@ -2,9 +2,7 @@
 
 [![Build Status](https://travis-ci.org/ypereirareis/docker-satis.svg?branch=master)](https://travis-ci.org/ypereirareis/docker-satis)
 [![Docker Stars](https://img.shields.io/docker/stars/ypereirareis/docker-satis.svg)]()
-[![ImageLayers Size](https://img.shields.io/imagelayers/image-size/ypereirareis/docker-satis/latest.svg)]()
 [![Docker Pulls](https://img.shields.io/docker/pulls/ypereirareis/docker-satis.svg)]()
-[![ImageLayers Layers](https://img.shields.io/imagelayers/layers/ypereirareis/docker-satis/latest.svg)]()
 
 A docker image and configuration to run [Satis](https://github.com/composer/satis) very easily in seconds
 
