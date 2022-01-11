@@ -82,10 +82,6 @@ STEP="PERMISSIONS"
 chown -R www-data:www-data /var/www
 chown -R www-data:www-data /satisfy/satis.json && chmod 777 /satisfy/satis.json
 
-STEP="FIRST BUILD"
-echo " >>> Building Satis for the first time"
-scripts/build.sh
-
 STEP="END"
 
 exit 0
