@@ -1,6 +1,7 @@
 # Docker Satis
 
-[![Build Status](https://travis-ci.org/ypereirareis/docker-satis.svg?branch=master)](https://travis-ci.org/ypereirareis/docker-satis)
+
+[![Build Status](https://app.travis-ci.com/ypereirareis/docker-satis.svg?branch=master)](https://app.travis-ci.com/github/ypereirareis/docker-satis)
 [![Docker Stars](https://img.shields.io/docker/stars/ypereirareis/docker-satis.svg)]()
 [![Docker Pulls](https://img.shields.io/docker/pulls/ypereirareis/docker-satis.svg)]()
 
